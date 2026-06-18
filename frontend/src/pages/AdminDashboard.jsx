@@ -12,7 +12,7 @@ function AdminDashboard() {
   useEffect(() => {
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/dashboard/total-students")
+      .get("https://campusconnect-fullstack.onrender.com/dashboard/total-students")
       .then((res) =>
         setTotalStudents(
           res.data.total_students
@@ -20,7 +20,7 @@ function AdminDashboard() {
       )
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/dashboard/placement-drives")
+      .get("https://campusconnect-fullstack.onrender.com/dashboard/placement-drives")
       .then((res) =>
         setPlacementDrives(
           res.data.placement_drives
@@ -28,7 +28,7 @@ function AdminDashboard() {
       )
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/dashboard/selected-students")
+      .get("https://campusconnect-fullstack.onrender.com/dashboard/selected-students")
       .then((res) =>
         setSelectedStudents(
           res.data.selected_students
@@ -36,7 +36,7 @@ function AdminDashboard() {
       )
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/applications")
+      .get("https://campusconnect-fullstack.onrender.com/applications")
       .then((res) =>
         setApplications(
           res.data.length
@@ -44,7 +44,7 @@ function AdminDashboard() {
       )
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/students")
+      .get("https://campusconnect-fullstack.onrender.com/students")
       .then((res) => {
 
         const students = res.data

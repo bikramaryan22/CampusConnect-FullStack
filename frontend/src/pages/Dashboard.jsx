@@ -25,30 +25,30 @@ function Dashboard() {
   useEffect(() => {
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/dashboard/total-students")
+      .get("https://campusconnect-fullstack.onrender.com/dashboard/total-students")
       .then((res) =>
         setTotalStudents(res.data.total_students)
       )
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/dashboard/placement-drives")
+      .get("https://campusconnect-fullstack.onrender.com/dashboard/placement-drives")
       .then((res) =>
         setPlacementDrives(res.data.placement_drives)
       )
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/dashboard/selected-students")
+      .get("https://campusconnect-fullstack.onrender.com/dashboard/selected-students")
       .then((res) =>
         setSelectedStudents(res.data.selected_students)
       )
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/dashboard/branches")
+      .get("https://campusconnect-fullstack.onrender.com/dashboard/branches")
       .then((res) =>
         setBranches(res.data)
       )
     axios
-  .get("https://campusconnect-backend-qskx.onrender.com/students")
+  .get("https://campusconnect-fullstack.onrender.com/students")
   .then((res) => {
 
     const students = res.data
@@ -74,7 +74,7 @@ function Dashboard() {
   })
   axios
   .get(
-    "https://campusconnect-backend-qskx.onrender.com/dashboard/placement-status"
+    "https://campusconnect-fullstack.onrender.com/dashboard/placement-status"
   )
   .then((res) => {
 

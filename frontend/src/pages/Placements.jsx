@@ -20,7 +20,7 @@ const [description, setDescription] = useState("")
   const fetchDrives = () => {
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/placements")
+      .get("https://campusconnect-fullstack.onrender.com/placements")
       .then((res) => {
         setDrives(res.data)
       })
@@ -36,7 +36,7 @@ const [description, setDescription] = useState("")
 
   axios
     .get(
-      `https://campusconnect-backend-qskx.onrender.com/applications/${studentId}`
+      `https://campusconnect-fullstack.onrender.com/applications/${studentId}`
     )
     .then((res) => {
 
@@ -55,7 +55,7 @@ const [description, setDescription] = useState("")
 
   axios
     .get(
-      "https://campusconnect-backend-qskx.onrender.com/applications"
+      "https://campusconnect-fullstack.onrender.com/applications"
     )
     .then((res) => {
 
@@ -75,7 +75,7 @@ useEffect(() => {
   localStorage.getItem("token")
 
 axios.get(
-  "https://campusconnect-backend-qskx.onrender.com/my-profile",
+  "https://campusconnect-fullstack.onrender.com/my-profile",
   {
     headers: {
       Authorization:
@@ -119,7 +119,7 @@ useEffect(() => {
     try {
 
       await axios.post(
-        "https://campusconnect-backend-qskx.onrender.com/apply",
+        "https://campusconnect-fullstack.onrender.com/apply",
         {
           student_id: studentId,
           drive_id: driveId
@@ -167,7 +167,7 @@ const addDrive = async (e) => {
   localStorage.getItem("token")
 
 await axios.post(
-  "https://campusconnect-backend-qskx.onrender.com/placements",
+  "https://campusconnect-fullstack.onrender.com/placements",
   {
     company_name: companyName,
     package: Number(pkg),
@@ -215,7 +215,7 @@ const updateStatus = async (
   try {
 
     await axios.put(
-      `https://campusconnect-backend-qskx.onrender.com/applications/${applicationId}`,
+      `https://campusconnect-fullstack.onrender.com/applications/${applicationId}`,
       {
         status
       }

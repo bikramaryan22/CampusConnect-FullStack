@@ -11,7 +11,7 @@ useEffect(() => {
     localStorage.getItem("token")
 
   axios.get(
-    "http://127.0.0.1:8000/my-profile",
+    "https://campusconnect-fullstack.onrender.com/my-profile",
     {
       headers: {
         Authorization:

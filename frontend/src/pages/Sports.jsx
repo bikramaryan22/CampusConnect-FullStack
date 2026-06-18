@@ -16,7 +16,7 @@ function Sports() {
   const fetchRecords = () => {
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/sports/1")
+      .get("https://campusconnect-fullstack.onrender.com/sports/1")
       .then((res) => {
         setRecords(res.data)
       })
@@ -49,7 +49,7 @@ function Sports() {
     try {
 
       await axios.post(
-        "https://campusconnect-backend-qskx.onrender.com/sports",
+        "https://campusconnect-fullstack.onrender.com/sports",
         {
           student_id: 1,
           sport,
@@ -89,7 +89,7 @@ function Sports() {
     try {
 
       await axios.delete(
-        `http://127.0.0.1:8000/sports/${id}`
+        `https://campusconnect-fullstack.onrender.com/sports/${id}`
       )
 
       fetchRecords()

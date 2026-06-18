@@ -23,7 +23,7 @@ const [password, setPassword] = useState("")
   const fetchStudents = () => {
 
     axios
-      .get("https://campusconnect-backend-qskx.onrender.com/students")
+      .get("https://campusconnect-fullstack.onrender.com/students")
       .then((response) => {
         setStudents(response.data)
       })
@@ -52,7 +52,7 @@ const [password, setPassword] = useState("")
   localStorage.getItem("token")
 
       await axios.delete(
-  `https://campusconnect-backend-qskx.onrender.com/students/${id}`,
+  `https://campusconnect-fullstack.onrender.com/students/${id}`,
   {
     headers: {
       Authorization:
@@ -129,7 +129,7 @@ const [password, setPassword] = useState("")
   if (editingId) {
 
     await axios.put(
-  `https://campusconnect-backend-qskx.onrender.com/students/${editingId}`,
+  `https://campusconnect-fullstack.onrender.com/students/${editingId}`,
   studentData,
   {
     headers: {
@@ -144,7 +144,7 @@ const [password, setPassword] = useState("")
   } else {
 
     await axios.post(
-  "https://campusconnect-backend-qskx.onrender.com/students",
+  "https://campusconnect-fullstack.onrender.com/students",
   studentData,
   {
     headers: {

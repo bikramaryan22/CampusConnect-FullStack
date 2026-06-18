@@ -18,7 +18,7 @@ function Academics() {
   const fetchRecords = () => {
 
     axios
-      .get("http://127.0.0.1:8000/academics/1")
+      .get("https://campusconnect-fullstack.onrender.com/academics/1")
       .then((res) => {
         setRecords(res.data)
       })
@@ -31,7 +31,7 @@ function Academics() {
   const fetchCGPA = () => {
 
     axios
-      .get("http://127.0.0.1:8000/students/1/cgpa")
+      .get("https://campusconnect-fullstack.onrender.com/students/1/cgpa")
       .then((res) => {
         setCgpa(res.data.cgpa)
       })
@@ -66,7 +66,7 @@ function Academics() {
     try {
 
       await axios.post(
-        "http://127.0.0.1:8000/academics",
+        "https://campusconnect-fullstack.onrender.com/academics",
         {
           student_id: 1,
           semester: Number(semester),
