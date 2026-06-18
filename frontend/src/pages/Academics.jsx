@@ -12,13 +12,15 @@ function Academics() {
   const [semester, setSemester] = useState("")
   const [gpa, setGpa] = useState("")
   const [backlogs, setBacklogs] = useState("")
+  const [students, setStudents] = useState([])
+const [selectedStudent, setSelectedStudent] = useState("")
 
   const [showForm, setShowForm] = useState(false)
 
-  const fetchRecords = () => {
+  const fetchRecords = (studentId) => {
 
     axios
-      .get("https://campusconnect-fullstack.onrender.com/academics/1")
+      .get(`https://campusconnect-fullstack.onrender.com/academics/${studentId}`)
       .then((res) => {
         setRecords(res.data)
       })
@@ -28,10 +30,12 @@ function Academics() {
 
   }
 
-  const fetchCGPA = () => {
+  const fetchCGPA = (studentId) => {
 
-    axios
-      .get("https://campusconnect-fullstack.onrender.com/students/1/cgpa")
+  axios
+    .get(
+      `https://campusconnect-fullstack.onrender.com/students/${studentId}/cgpa`
+    )
       .then((res) => {
         setCgpa(res.data.cgpa)
       })
@@ -41,13 +45,67 @@ function Academics() {
 
   }
 
-  useEffect(() => {
+useEffect(() => {
 
-    fetchRecords()
+  const token =
+    localStorage.getItem("token")
 
-    fetchCGPA()
+  if (role === "admin") {
 
-  }, [])
+    axios
+      .get(
+        "https://campusconnect-fullstack.onrender.com/students"
+      )
+      .then((res) => {
+
+        setStudents(res.data)
+
+        if (res.data.length > 0) {
+
+          setSelectedStudent(
+            res.data[0].id
+          )
+
+          fetchRecords(
+            res.data[0].id
+          )
+
+          fetchCGPA(
+            res.data[0].id
+          )
+
+        }
+
+      })
+
+  }
+
+  else {
+
+    axios.get(
+      "https://campusconnect-fullstack.onrender.com/my-profile",
+      {
+        headers: {
+          Authorization:
+            `Bearer ${token}`
+        }
+      }
+    )
+    .then((res) => {
+
+      fetchRecords(
+        res.data.id
+      )
+
+      fetchCGPA(
+        res.data.id
+      )
+
+    })
+
+  }
+
+}, [])
 
   const handleSubmit = async (e) => {
 
@@ -68,7 +126,7 @@ function Academics() {
       await axios.post(
         "https://campusconnect-fullstack.onrender.com/academics",
         {
-          student_id: 1,
+          student_id: Number(selectedStudent),
           semester: Number(semester),
           gpa: Number(gpa),
           backlogs: Number(backlogs)
@@ -81,9 +139,9 @@ function Academics() {
 
       setShowForm(false)
 
-      fetchRecords()
+      fetchRecords(selectedStudent)
 
-      fetchCGPA()
+      fetchCGPA(selectedStudent)
 
       alert("Academic Record Added")
 
@@ -128,6 +186,48 @@ function Academics() {
 }
 
       </div>
+      {
+  role === "admin" && (
+
+    <select
+      value={selectedStudent}
+      onChange={(e) => {
+
+        setSelectedStudent(
+          e.target.value
+        )
+
+        fetchRecords(
+          e.target.value
+        )
+
+        fetchCGPA(
+          e.target.value
+        )
+
+      }}
+      className="border p-3 rounded-lg mb-4"
+    >
+
+      {
+        students.map(
+          (student) => (
+
+            <option
+              key={student.id}
+              value={student.id}
+            >
+              {student.name}
+            </option>
+
+          )
+        )
+      }
+
+    </select>
+
+  )
+}
 
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow p-6 mb-6">
 

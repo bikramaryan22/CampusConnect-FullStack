@@ -10,13 +10,17 @@ function Sports() {
   const [sport, setSport] = useState("")
   const [achievement, setAchievement] = useState("")
   const [year, setYear] = useState("")
+  const [students, setStudents] = useState([])
+const [selectedStudent, setSelectedStudent] = useState("")
 
   const [showForm, setShowForm] = useState(false)
 
-  const fetchRecords = () => {
+  const fetchRecords = (studentId) => {
 
     axios
-      .get("https://campusconnect-fullstack.onrender.com/sports/1")
+      .get(
+  `https://campusconnect-fullstack.onrender.com/sports/${studentId}`
+)
       .then((res) => {
         setRecords(res.data)
       })
@@ -26,11 +30,59 @@ function Sports() {
 
   }
 
-  useEffect(() => {
+useEffect(() => {
 
-    fetchRecords()
+  const token =
+    localStorage.getItem("token")
 
-  }, [])
+  if (role === "admin") {
+
+    axios
+      .get(
+        "https://campusconnect-fullstack.onrender.com/students"
+      )
+      .then((res) => {
+
+        setStudents(res.data)
+
+        if (res.data.length > 0) {
+
+          setSelectedStudent(
+            res.data[0].id
+          )
+
+          fetchRecords(
+            res.data[0].id
+          )
+
+        }
+
+      })
+
+  }
+
+  else {
+
+    axios.get(
+      "https://campusconnect-fullstack.onrender.com/my-profile",
+      {
+        headers: {
+          Authorization:
+            `Bearer ${token}`
+        }
+      }
+    )
+    .then((res) => {
+
+      fetchRecords(
+        res.data.id
+      )
+
+    })
+
+  }
+
+}, [])
 
   const handleSubmit = async (e) => {
 
@@ -51,7 +103,7 @@ function Sports() {
       await axios.post(
         "https://campusconnect-fullstack.onrender.com/sports",
         {
-          student_id: 1,
+          student_id: Number(selectedStudent),
           sport,
           achievement,
           year: Number(year)
@@ -64,7 +116,7 @@ function Sports() {
 
       setShowForm(false)
 
-      fetchRecords()
+      fetchRecords(selectedStudent)
 
       alert("Sports Record Added")
 
@@ -92,7 +144,7 @@ function Sports() {
         `https://campusconnect-fullstack.onrender.com/sports/${id}`
       )
 
-      fetchRecords()
+      fetchRecords(selectedStudent)
 
       alert("Deleted Successfully")
 
@@ -190,6 +242,44 @@ function Sports() {
         </div>
 
       )}
+      {
+  role === "admin" && (
+
+    <select
+      value={selectedStudent}
+      onChange={(e) => {
+
+        setSelectedStudent(
+          e.target.value
+        )
+
+        fetchRecords(
+          e.target.value
+        )
+
+      }}
+      className="border p-3 rounded-lg mb-4"
+    >
+
+      {
+        students.map(
+          (student) => (
+
+            <option
+              key={student.id}
+              value={student.id}
+            >
+              {student.name}
+            </option>
+
+          )
+        )
+      }
+
+    </select>
+
+  )
+}
 
       <div className="bg-white rounded-xl shadow overflow-hidden">
 
