@@ -92,7 +92,12 @@ function Sidebar() {
         >
           💼 Placements
         </Link>
-
+<Link
+  to="/attendance"
+  className="p-3 rounded-xl hover:bg-blue-600 transition"
+>
+  📅 Attendance
+</Link>
         <Link
           to="/sports"
           className="p-3 rounded-xl hover:bg-blue-600 transition"

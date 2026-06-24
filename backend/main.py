@@ -949,3 +949,36 @@ def get_attendance(
     ).filter(
         models.Attendance.student_id == student_id
     ).all()
+
+@app.get("/eligibility/{student_id}/{drive_id}")
+def check_eligibility(
+    student_id: int,
+    drive_id: int,
+    db: Session = Depends(get_db)
+):
+
+    student = db.query(
+        models.Student
+    ).filter(
+        models.Student.id == student_id
+    ).first()
+
+    drive = db.query(
+        models.PlacementDrive
+    ).filter(
+        models.PlacementDrive.id == drive_id
+    ).first()
+
+    if not student or not drive:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Not Found"
+        )
+
+    return {
+        "student_cgpa": student.cgpa,
+        "required_cgpa": drive.min_cgpa,
+        "eligible":
+            student.cgpa >= drive.min_cgpa
+    }
