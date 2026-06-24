@@ -982,3 +982,57 @@ def check_eligibility(
         "eligible":
             student.cgpa >= drive.min_cgpa
     }
+
+@app.post("/fees")
+def create_fee(
+    fee: schemas.FeeCreate,
+    db: Session = Depends(get_db),
+    admin=Depends(admin_required)
+):
+
+    new_fee = models.Fee(
+        student_id=fee.student_id,
+        amount=fee.amount,
+        status="Pending"
+    )
+
+    db.add(new_fee)
+
+    db.commit()
+
+    db.refresh(new_fee)
+
+    return new_fee
+
+@app.get("/fees/{student_id}")
+def get_fee(
+    student_id: int,
+    db: Session = Depends(get_db)
+):
+
+    return db.query(
+        models.Fee
+    ).filter(
+        models.Fee.student_id == student_id
+    ).all()
+
+@app.put("/fees/pay/{fee_id}")
+def pay_fee(
+    fee_id: int,
+    db: Session = Depends(get_db)
+):
+
+    fee = db.query(
+        models.Fee
+    ).filter(
+        models.Fee.id == fee_id
+    ).first()
+
+    fee.status = "Paid"
+
+    db.commit()
+
+    return {
+        "message":
+        "Payment Successful"
+    }

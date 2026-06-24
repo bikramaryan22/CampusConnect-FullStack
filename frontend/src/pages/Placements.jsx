@@ -8,6 +8,7 @@ function Placements() {
   const [applications, setApplications] = useState([])
   const [studentId, setStudentId] = useState(null)
   const [allApplications, setAllApplications] = useState([])
+  const [eligibility, setEligibility] = useState({})
   const [showForm, setShowForm] = useState(false)
 
 const [companyName, setCompanyName] = useState("")
@@ -46,6 +47,27 @@ const [description, setDescription] = useState("")
     .catch((err) => {
 
       console.log(err)
+
+    })
+
+}
+const checkEligibility = (
+  studentId,
+  driveId
+) => {
+
+  axios
+    .get(
+      `https://campusconnect-fullstack.onrender.com/eligibility/${studentId}/${driveId}`
+    )
+    .then((res) => {
+
+      setEligibility(
+        (prev) => ({
+          ...prev,
+          [driveId]: res.data
+        })
+      )
 
     })
 
@@ -110,9 +132,18 @@ useEffect(() => {
 
     fetchApplications()
 
+    drives.forEach((drive) => {
+
+      checkEligibility(
+        studentId,
+        drive.id
+      )
+
+    })
+
   }
 
-}, [studentId])
+}, [studentId, drives])
 
   const applyDrive = async (driveId) => {
 
@@ -382,6 +413,38 @@ const updateStatus = async (
     {" "}
     {drive.min_cgpa}
   </p>
+  {
+  role === "student" &&
+  eligibility[drive.id] && (
+
+    <p className="mt-2">
+
+      {
+        eligibility[drive.id]
+          .eligible
+
+          ?
+
+          <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+
+            ✅ Eligible
+
+          </span>
+
+          :
+
+          <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full">
+
+            ❌ Not Eligible
+
+          </span>
+
+      }
+
+    </p>
+
+  )
+}
 
   <p>
     📅 Deadline:
@@ -413,7 +476,30 @@ const updateStatus = async (
           applyDrive(drive.id)
         }
       >
-        Apply
+        {
+  eligibility[drive.id]?.eligible
+
+    ?
+
+    <button
+      className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg"
+      onClick={() =>
+        applyDrive(drive.id)
+      }
+    >
+      Apply
+    </button>
+
+    :
+
+    <button
+      disabled
+      className="mt-4 bg-gray-400 text-white px-4 py-2 rounded-lg"
+    >
+      Not Eligible
+    </button>
+
+}
       </button>
 
   )

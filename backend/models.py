@@ -82,3 +82,11 @@ class Attendance(Base):
     subject = Column(String)
     attended = Column(Integer)
     total = Column(Integer)
+
+class Fee(Base):
+    __tablename__ = "fees"
+
+    id = Column(Integer, primary_key=True, index=True)
+    student_id = Column(Integer)
+    amount = Column(Float)
+    status = Column(String)

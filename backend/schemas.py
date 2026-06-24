@@ -66,3 +66,7 @@ class AttendanceCreate(BaseModel):
     subject: str
     attended: int
     total: int
+
+class FeeCreate(BaseModel):
+    student_id: int
+    amount: float
