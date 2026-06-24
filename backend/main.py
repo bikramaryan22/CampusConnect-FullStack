@@ -38,7 +38,6 @@ app.add_middleware(
 
 
 # TEMPORARY - reset database
-models.Base.metadata.drop_all(bind=engine)
 models.Base.metadata.create_all(bind=engine)
 
 
