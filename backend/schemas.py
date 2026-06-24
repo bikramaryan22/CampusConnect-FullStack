@@ -60,3 +60,9 @@ class PasswordChange(BaseModel):
 class NoticeCreate(BaseModel):
     title: str
     description: str
+
+class AttendanceCreate(BaseModel):
+    student_id: int
+    subject: str
+    attended: int
+    total: int

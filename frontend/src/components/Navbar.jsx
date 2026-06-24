@@ -1,11 +1,25 @@
 import { getUserRole,  getUsername
  } from "../utils/auth"
-
+import { useEffect, useState } from "react"
+import axios from "axios"
 function Navbar() {
 
   const role = getUserRole()
   const username = getUsername()
+  const [noticeCount, setNoticeCount] = useState(0)
+  useEffect(() => {
 
+  axios
+    .get(
+      "https://campusconnect-fullstack.onrender.com/notices"
+    )
+    .then((res) => {
+
+      setNoticeCount(res.data.length)
+
+    })
+
+}, [])
   const handleLogout = () => {
 
     localStorage.removeItem("token")
@@ -37,7 +51,7 @@ function Navbar() {
         🔔
 
         <span className="absolute -top-1 -right-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-          3
+          {noticeCount}
         </span>
 
       </button>

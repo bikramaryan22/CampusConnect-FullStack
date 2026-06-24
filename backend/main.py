@@ -917,3 +917,35 @@ def get_notices(
     ).order_by(
         models.Notice.id.desc()
     ).all()
+
+@app.post("/attendance")
+def create_attendance(
+    attendance: schemas.AttendanceCreate,
+    db: Session = Depends(get_db),
+    admin=Depends(admin_required)
+):
+
+    record = models.Attendance(
+        student_id=attendance.student_id,
+        subject=attendance.subject,
+        attended=attendance.attended,
+        total=attendance.total
+    )
+
+    db.add(record)
+    db.commit()
+    db.refresh(record)
+
+    return record
+
+@app.get("/attendance/{student_id}")
+def get_attendance(
+    student_id: int,
+    db: Session = Depends(get_db)
+):
+
+    return db.query(
+        models.Attendance
+    ).filter(
+        models.Attendance.student_id == student_id
+    ).all()

@@ -21,6 +21,7 @@ function Dashboard() {
   const [branches, setBranches] = useState({})
   const [averageCgpa, setAverageCgpa] = useState(0)
   const [placementStatus, setPlacementStatus] = useState({})
+  const [notices, setNotices] = useState([])
 
   useEffect(() => {
 
@@ -35,6 +36,15 @@ function Dashboard() {
       .then((res) =>
         setPlacementDrives(res.data.placement_drives)
       )
+    axios
+  .get(
+    "https://campusconnect-fullstack.onrender.com/notices"
+  )
+  .then((res) => {
+
+    setNotices(res.data)
+
+  })
 
     axios
       .get("https://campusconnect-fullstack.onrender.com/dashboard/selected-students")
@@ -152,19 +162,28 @@ function Dashboard() {
 
   <div className="space-y-3">
 
-    <div className="bg-slate-50 p-3 rounded-lg">
-      Placement Drive Registration Open
-    </div>
+  {
+    notices.map((notice) => (
 
-    <div className="bg-slate-50 p-3 rounded-lg">
-      Semester Results Published
-    </div>
+      <div
+        key={notice.id}
+        className="bg-slate-50 p-4 rounded-lg"
+      >
 
-    <div className="bg-slate-50 p-3 rounded-lg">
-      Sports Event Registration Open
-    </div>
+        <h3 className="font-bold">
+          {notice.title}
+        </h3>
 
-  </div>
+        <p className="text-gray-600 mt-1">
+          {notice.description}
+        </p>
+
+      </div>
+
+    ))
+  }
+
+</div>
 
 </div>
 

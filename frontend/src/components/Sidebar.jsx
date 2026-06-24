@@ -80,7 +80,12 @@ function Sidebar() {
         >
           📚 Academics
         </Link>
-
+        <Link
+  to="/notices"
+  className="p-3 rounded-xl hover:bg-blue-600 transition"
+>
+  📢 Notices
+</Link>
         <Link
           to="/placements"
           className="p-3 rounded-xl hover:bg-blue-600 transition"

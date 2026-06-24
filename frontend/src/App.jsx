@@ -18,6 +18,7 @@ import Profile from "./pages/Profile"
 import AdminDashboard from "./pages/AdminDashboard"
 import { getUserRole } from "./utils/auth"
 import ChangePassword from "./pages/ChangePassword"
+import Notices from "./pages/Notices"
 
 function App() {
   const role = getUserRole()
@@ -66,6 +67,10 @@ function App() {
                       path="/students"
                       element={<Students />}
                     />
+                    <Route
+  path="/notices"
+  element={<Notices />}
+/>
 
                     <Route
                       path="/academics"
