@@ -3,11 +3,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi import HTTPException
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordBearer
 from security import verify_token
 from auth import hash_password
-from fastapi import Header
-from security import verify_token
 
 import models
 import schemas
@@ -35,35 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="login"
-)
 
-def get_current_user(
-    token: str = Depends(oauth2_scheme)
-):
-
-    payload = verify_token(token)
-
-    if payload is None:
-
-        return {
-            "message": "Invalid Token"
-        }
-
-    return payload
-
-def admin_required(
-    current_user=Depends(get_current_user)
-):
-
-    if current_user["role"] != "admin":
-
-        return {
-            "message": "Admin Access Required"
-        }
-
-    return current_user
 
 
 
@@ -209,7 +178,7 @@ def change_password(
     }
 @app.post("/students")
 def create_student(
-    student: schemas.StudentCreate,
+    student_data: schemas.StudentCreate,
     db: Session = Depends(get_db),
     admin=Depends(admin_required)
 ):
@@ -314,13 +283,12 @@ def update_student(
             "message": "Student Not Found"
         }
 
-    student.user_id = updated_student.user_id
-    student.name = updated_student.name
-    student.email = updated_student.email
-    student.phone = updated_student.phone
-    student.branch = updated_student.branch
-    student.year = updated_student.year
-    student.cgpa = updated_student.cgpa
+    student.name = student_data.name
+    student.email = student_data.email
+    student.phone = student_data.phone
+    student.branch = student_data.branch
+    student.year = student_data.year
+    student.cgpa = student_data.cgpa
 
     db.commit()
 
@@ -536,7 +504,7 @@ def apply_for_drive(
             detail="Already Applied"
             
         )
-        student = db.query(
+    student = db.query(
         models.Student
     ).filter(
         models.Student.id == application.student_id
