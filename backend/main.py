@@ -5,6 +5,7 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from security import verify_token
 from auth import hash_password
+from fastapi import Header
 
 import models
 import schemas
@@ -186,7 +187,7 @@ def create_student(
     existing_user = db.query(
         models.User
     ).filter(
-        models.User.username == student.username
+        models.User.username == student_data.username
     ).first()
 
     if existing_user:
@@ -197,11 +198,11 @@ def create_student(
         )
 
     hashed_pw = hash_password(
-        student.password
+        student_data.password
     )
 
     db_user = models.User(
-    username=student.username,
+    username=student_data.username,
     password=hashed_pw,
     role="student",
     must_change_password=True
@@ -215,11 +216,11 @@ def create_student(
 
     db_student = models.Student(
         user_id=db_user.id,
-        name=student.name,
-        email=student.email,
-        phone=student.phone,
-        branch=student.branch,
-        year=student.year,
+        name=student_data.name,
+        email=student_data.email,
+        phone=student_data.phone,
+        branch=student_data.branch,
+        year=student_data.year,
         cgpa=0
     )
 
@@ -266,7 +267,7 @@ def get_student(
 @app.put("/students/{student_id}")
 def update_student(
     student_id: int,
-    student: schemas.StudentCreate,
+    student_data: schemas.StudentCreate,
     db: Session = Depends(get_db),
     admin=Depends(admin_required)
 ):

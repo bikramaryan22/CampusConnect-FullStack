@@ -24,7 +24,7 @@ class Student(Base):
     phone = Column(String)
     branch = Column(String)
     year = Column(Integer)
-
+    cgpa = Column(Float, default=0)
 
 class AcademicRecord(Base):
     __tablename__ = "academic_records"
