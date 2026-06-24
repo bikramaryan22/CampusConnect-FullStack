@@ -65,3 +65,11 @@ class Application(Base):
     student_id = Column(Integer, ForeignKey("students.id"))
     drive_id = Column(Integer, ForeignKey("placement_drives.id"))
     status = Column(String)
+
+class Notice(Base):
+    __tablename__ = "notices"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    description = Column(String)
+    created_at = Column(String)

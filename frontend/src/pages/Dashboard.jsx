@@ -86,71 +86,192 @@ function Dashboard() {
 
   return (
 
-    <div>
+  <div>
 
-      <h1 className="text-4xl font-bold mb-2">
-        Dashboard
-      </h1>
+```
+<div className="bg-gradient-to-r from-slate-900 to-blue-900 text-white rounded-2xl shadow-xl p-8 mb-8">
 
-      <p className="text-gray-500 mb-8">
-        Welcome to CampusConnect
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-
-        <div className="bg-white rounded-xl shadow p-6">
-
-          <h3 className="text-gray-500">
-            Total Students
-          </h3>
-
-          <h1 className="text-5xl font-bold mt-3">
-            {totalStudents}
-          </h1>
-
-        </div>
-
-        <div className="bg-white rounded-xl shadow p-6">
-
-          <h3 className="text-gray-500">
-            Placement Drives
-          </h3>
-
-          <h1 className="text-5xl font-bold mt-3">
-            {placementDrives}
-          </h1>
-
-        </div>
-
-        <div className="bg-white rounded-xl shadow p-6">
-
-          <h3 className="text-gray-500">
-            Selected Students
-          </h3>
-
-          <h1 className="text-5xl font-bold mt-3">
-            {selectedStudents}
-          </h1>
-
-        </div>
-        <div className="bg-white rounded-xl shadow p-6">
-
-  <h3 className="text-gray-500">
-    Average CGPA
-  </h3>
-
-  <h1 className="text-5xl font-bold mt-3">
-    {averageCgpa}
+  <h1 className="text-4xl font-bold">
+    Welcome Back 👋
   </h1>
+
+  <p className="mt-3 text-slate-300">
+    Manage students, placements, academics and achievements from one dashboard.
+  </p>
+
+</div>
+<div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+
+  <h2 className="text-2xl font-bold mb-6">
+    🎓 Academic Progress
+  </h2>
+
+  <div className="flex flex-wrap gap-3">
+
+    <div className="bg-green-500 text-white px-5 py-3 rounded-full">
+      SEM I ✓
+    </div>
+
+    <div className="bg-green-500 text-white px-5 py-3 rounded-full">
+      SEM II ✓
+    </div>
+
+    <div className="bg-green-500 text-white px-5 py-3 rounded-full">
+      SEM III ✓
+    </div>
+
+    <div className="bg-blue-600 text-white px-5 py-3 rounded-full">
+      SEM IV
+    </div>
+
+    <div className="bg-slate-200 px-5 py-3 rounded-full">
+      SEM V
+    </div>
+
+    <div className="bg-slate-200 px-5 py-3 rounded-full">
+      SEM VI
+    </div>
+
+    <div className="bg-slate-200 px-5 py-3 rounded-full">
+      SEM VII
+    </div>
+
+    <div className="bg-slate-200 px-5 py-3 rounded-full">
+      SEM VIII
+    </div>
+
+  </div>
 
 </div>
 
+<div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border-l-4 border-blue-600">
+
+  <h2 className="text-2xl font-bold mb-4">
+    📢 Notice Board
+  </h2>
+
+  <div className="space-y-3">
+
+    <div className="bg-slate-50 p-3 rounded-lg">
+      Placement Drive Registration Open
+    </div>
+
+    <div className="bg-slate-50 p-3 rounded-lg">
+      Semester Results Published
+    </div>
+
+    <div className="bg-slate-50 p-3 rounded-lg">
+      Sports Event Registration Open
+    </div>
+
+  </div>
+
+</div>
+
+<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+
+  <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-2xl shadow-xl p-6">
+
+    <div className="flex justify-between items-center">
+
+      <div>
+
+        <h3 className="text-blue-100">
+          Total Students
+        </h3>
+
+        <h1 className="text-5xl font-bold mt-3">
+          {totalStudents}
+        </h1>
+
       </div>
 
-      <div className="bg-white rounded-xl shadow p-6">
+      <div className="text-5xl">
+        🎓
+      </div>
+
+    </div>
+
+  </div>
+
+  <div className="bg-gradient-to-r from-green-500 to-emerald-700 text-white rounded-2xl shadow-xl p-6">
+
+    <div className="flex justify-between items-center">
+
+      <div>
+
+        <h3 className="text-green-100">
+          Placement Drives
+        </h3>
+
+        <h1 className="text-5xl font-bold mt-3">
+          {placementDrives}
+        </h1>
+
+      </div>
+
+      <div className="text-5xl">
+        💼
+      </div>
+
+    </div>
+
+  </div>
+
+  <div className="bg-gradient-to-r from-purple-500 to-violet-700 text-white rounded-2xl shadow-xl p-6">
+
+    <div className="flex justify-between items-center">
+
+      <div>
+
+        <h3 className="text-purple-100">
+          Selected Students
+        </h3>
+
+        <h1 className="text-5xl font-bold mt-3">
+          {selectedStudents}
+        </h1>
+
+      </div>
+
+      <div className="text-5xl">
+        🎉
+      </div>
+
+    </div>
+
+  </div>
+
+  <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-2xl shadow-xl p-6">
+
+    <div className="flex justify-between items-center">
+
+      <div>
+
+        <h3 className="text-orange-100">
+          Average CGPA
+        </h3>
+
+        <h1 className="text-5xl font-bold mt-3">
+          {averageCgpa}
+        </h1>
+
+      </div>
+
+      <div className="text-5xl">
+        📈
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
 
   <h2 className="text-2xl font-bold mb-6">
-    Branch Analytics
+    📊 Branch Analytics
   </h2>
 
   <ResponsiveContainer
@@ -170,9 +291,7 @@ function Dashboard() {
     >
 
       <XAxis dataKey="branch" />
-
       <YAxis />
-
       <Tooltip />
 
       <Bar
@@ -184,10 +303,11 @@ function Dashboard() {
   </ResponsiveContainer>
 
 </div>
-<div className="bg-white rounded-xl shadow p-6 mt-8">
+
+<div className="bg-white rounded-2xl shadow-lg p-6">
 
   <h2 className="text-2xl font-bold mb-6">
-    Placement Status Analytics
+    💼 Placement Status Analytics
   </h2>
 
   <ResponsiveContainer
@@ -214,7 +334,6 @@ function Dashboard() {
       />
 
       <Tooltip />
-
       <Legend />
 
     </PieChart>
@@ -222,10 +341,12 @@ function Dashboard() {
   </ResponsiveContainer>
 
 </div>
+```
 
-    </div>
+  </div>
 
-  )
+)
+
 
 }
 

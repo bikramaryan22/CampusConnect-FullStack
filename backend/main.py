@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from security import verify_token
 from auth import hash_password
 from fastapi import Header
+from datetime import datetime
 
 import models
 import schemas
@@ -885,3 +886,34 @@ def get_my_profile(
 
     return student
 
+@app.post("/notices")
+def create_notice(
+    notice: schemas.NoticeCreate,
+    db: Session = Depends(get_db),
+    admin=Depends(admin_required)
+):
+
+    new_notice = models.Notice(
+        title=notice.title,
+        description=notice.description,
+        created_at=str(datetime.now())
+    )
+
+    db.add(new_notice)
+
+    db.commit()
+
+    db.refresh(new_notice)
+
+    return new_notice
+
+@app.get("/notices")
+def get_notices(
+    db: Session = Depends(get_db)
+):
+
+    return db.query(
+        models.Notice
+    ).order_by(
+        models.Notice.id.desc()
+    ).all()

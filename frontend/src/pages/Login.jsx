@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import logo from "../assets/logo.png"
 
 function Login() {
 
@@ -59,13 +60,41 @@ window.location.href = "/"
 
   return (
 
-    <div className="max-w-md mx-auto mt-20">
+  <div className="min-h-screen flex bg-slate-100">
 
-      <div className="bg-white shadow rounded-xl p-6">
+    <div className="hidden md:flex flex-1 bg-gradient-to-br from-blue-700 to-indigo-800 text-white items-center justify-center">
 
-        <h1 className="text-3xl font-bold mb-6">
-          Login
+      <div className="text-center">
+
+        <img
+          src={logo}
+          alt="CampusConnect"
+          className="w-40 mx-auto mb-6"
+        />
+
+        <h1 className="text-5xl font-bold">
+          CampusConnect
         </h1>
+
+        <p className="mt-4 text-xl text-blue-100">
+          Student & Placement Portal
+        </p>
+
+      </div>
+
+    </div>
+
+    <div className="flex-1 flex items-center justify-center p-6">
+
+      <div className="bg-white shadow-2xl rounded-3xl p-10 w-full max-w-md">
+
+        <h2 className="text-3xl font-bold text-center mb-2">
+          Welcome Back
+        </h2>
+
+        <p className="text-center text-gray-500 mb-8">
+          Login to your account
+        </p>
 
         <form onSubmit={handleLogin}>
 
@@ -76,7 +105,7 @@ window.location.href = "/"
             onChange={(e) =>
               setUsername(e.target.value)
             }
-            className="border p-3 rounded-lg w-full mb-4"
+            className="w-full border rounded-xl p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
           <input
@@ -86,12 +115,12 @@ window.location.href = "/"
             onChange={(e) =>
               setPassword(e.target.value)
             }
-            className="border p-3 rounded-lg w-full mb-4"
+            className="w-full border rounded-xl p-3 mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-3 rounded-lg w-full"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl transition"
           >
             Login
           </button>
@@ -102,7 +131,9 @@ window.location.href = "/"
 
     </div>
 
-  )
+  </div>
+
+)
 
 }
 

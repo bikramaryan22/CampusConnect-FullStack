@@ -56,3 +56,7 @@ class PasswordChange(BaseModel):
     username: str
     old_password: str
     new_password: str
+
+class NoticeCreate(BaseModel):
+    title: str
+    description: str
