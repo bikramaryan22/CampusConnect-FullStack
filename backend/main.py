@@ -160,8 +160,52 @@ def login_user(
     )
 
     return {
-        "access_token": token,
-        "token_type": "bearer"
+    "access_token": token,
+    "token_type": "bearer",
+    "must_change_password":
+        db_user.must_change_password
+}
+@app.post("/change-password")
+def change_password(
+    data: schemas.PasswordChange,
+    db: Session = Depends(get_db)
+):
+
+    user = db.query(
+        models.User
+    ).filter(
+        models.User.username ==
+        data.username
+    ).first()
+
+    if not user:
+
+        raise HTTPException(
+            status_code=404,
+            detail="User Not Found"
+        )
+
+    if not verify_password(
+        data.old_password,
+        user.password
+    ):
+
+        raise HTTPException(
+            status_code=400,
+            detail="Wrong Password"
+        )
+
+    user.password = hash_password(
+        data.new_password
+    )
+
+    user.must_change_password = False
+
+    db.commit()
+
+    return {
+        "message":
+        "Password Updated"
     }
 @app.post("/students")
 def create_student(
@@ -188,10 +232,11 @@ def create_student(
     )
 
     db_user = models.User(
-        username=student.username,
-        password=hashed_pw,
-        role="student"
-    )
+    username=student.username,
+    password=hashed_pw,
+    role="student",
+    must_change_password=True
+)
 
     db.add(db_user)
 
@@ -206,7 +251,7 @@ def create_student(
         phone=student.phone,
         branch=student.branch,
         year=student.year,
-        cgpa=student.cgpa
+        cgpa=0
     )
 
     db.add(db_student)
@@ -356,6 +401,33 @@ def create_academic_record(
     db.commit()
 
     db.refresh(record)
+
+    records = db.query(
+    models.AcademicRecord
+        ).filter(
+    models.AcademicRecord.student_id
+    == academic.student_id
+    ).all()
+
+    total = sum(
+    r.gpa for r in records
+        )
+
+    cgpa = round(
+    total / len(records),
+    2
+    )
+
+    student = db.query(
+    models.Student
+    ).filter(
+    models.Student.id
+    == academic.student_id
+    ).first()
+
+    student.cgpa = cgpa
+
+    db.commit()
 
     return record
 @app.get("/academics/{student_id}")
@@ -843,3 +915,4 @@ def get_my_profile(
     ).first()
 
     return student
+

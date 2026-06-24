@@ -21,13 +21,28 @@ function Login() {
       )
 
       localStorage.setItem(
-        "token",
-        response.data.access_token
-      )
+  "token",
+  response.data.access_token
+)
 
-      alert("Login Successful")
+localStorage.setItem(
+  "username",
+  username
+)
 
-      window.location.href = "/"
+if (
+  response.data
+    .must_change_password
+) {
+
+  window.location.href =
+    "/change-password"
+
+  return
+
+}
+
+window.location.href = "/"
 
     } catch (error) {
 

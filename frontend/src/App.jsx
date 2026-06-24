@@ -17,6 +17,7 @@ import Sports from "./pages/Sports"
 import Profile from "./pages/Profile"
 import AdminDashboard from "./pages/AdminDashboard"
 import { getUserRole } from "./utils/auth"
+import ChangePassword from "./pages/ChangePassword"
 
 function App() {
   const role = getUserRole()
@@ -31,6 +32,10 @@ function App() {
           path="/login"
           element={<Login />}
         />
+        <Route
+  path="/change-password"
+  element={<ChangePassword />}
+/>
 
         <Route
           path="*"

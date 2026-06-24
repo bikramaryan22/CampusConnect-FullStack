@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from database import Base
-
+from sqlalchemy import Boolean
 
 class User(Base):
     __tablename__ = "users"
@@ -10,7 +10,10 @@ class User(Base):
     password = Column(String)
     role = Column(String)
 
-
+    must_change_password = Column(
+        Boolean,
+        default=True
+    )
 class Student(Base):
     __tablename__ = "students"
 
@@ -21,7 +24,6 @@ class Student(Base):
     phone = Column(String)
     branch = Column(String)
     year = Column(Integer)
-    cgpa = Column(Float)
 
 
 class AcademicRecord(Base):
