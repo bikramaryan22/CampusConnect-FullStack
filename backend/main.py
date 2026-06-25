@@ -7,6 +7,9 @@ from security import verify_token
 from auth import hash_password
 from fastapi import Header
 from datetime import datetime
+from fastapi.responses import FileResponse
+from reportlab.pdfgen import canvas
+import os
 
 import models
 import schemas
@@ -992,6 +995,8 @@ def create_fee(
 
     new_fee = models.Fee(
         student_id=fee.student_id,
+        semester=fee.semester,
+        fee_type=fee.fee_type,
         amount=fee.amount,
         status="Pending"
     )
@@ -1036,3 +1041,93 @@ def pay_fee(
         "message":
         "Payment Successful"
     }
+
+@app.get("/receipt/{fee_id}")
+def download_receipt(
+    fee_id: int,
+    db: Session = Depends(get_db)
+):
+
+    fee = db.query(
+        models.Fee
+    ).filter(
+        models.Fee.id == fee_id
+    ).first()
+
+    if not fee:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Fee Not Found"
+        )
+
+    student = db.query(
+        models.Student
+    ).filter(
+        models.Student.id == fee.student_id
+    ).first()
+
+    if not student:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Student Not Found"
+        )
+
+    filename = f"receipt_{fee.id}.pdf"
+
+    c = canvas.Canvas(filename)
+
+    c.setFont(
+        "Helvetica-Bold",
+        20
+    )
+
+    c.drawString(
+        150,
+        800,
+        "CampusConnect"
+    )
+
+    c.setFont(
+        "Helvetica",
+        14
+    )
+
+    c.drawString(
+        50,
+        750,
+        f"Student Name: {student.name}"
+    )
+
+    c.drawString(
+        50,
+        720,
+        f"Semester: {fee.semester}"
+    )
+
+    c.drawString(
+        50,
+        690,
+        f"Fee Type: {fee.fee_type}"
+    )
+
+    c.drawString(
+        50,
+        660,
+        f"Amount: ₹{fee.amount}"
+    )
+
+    c.drawString(
+        50,
+        630,
+        f"Status: {fee.status}"
+    )
+
+    c.save()
+
+    return FileResponse(
+        path=filename,
+        filename=filename,
+        media_type="application/pdf"
+    )

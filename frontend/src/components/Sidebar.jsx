@@ -81,6 +81,12 @@ function Sidebar() {
           📚 Academics
         </Link>
         <Link
+  to="/admin-fees"
+  className="p-3 rounded-lg hover:bg-slate-700"
+>
+  💰 Fee Management
+</Link>
+        <Link
   to="/notices"
   className="p-3 rounded-xl hover:bg-blue-600 transition"
 >

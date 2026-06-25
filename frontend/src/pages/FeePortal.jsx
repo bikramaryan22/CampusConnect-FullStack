@@ -55,8 +55,8 @@ function FeePortal() {
       )
 
       alert(
-        "Payment Successful"
-      )
+  "Payment Successful!\nReceipt Generated."
+)
 
       fetchFees(studentId)
 
@@ -90,10 +90,13 @@ function FeePortal() {
               className="bg-white rounded-2xl shadow-xl p-6"
             >
 
-              <h2 className="text-2xl font-bold mb-3">
-                Semester Fee
-              </h2>
+              <h2 className="text-2xl font-bold mb-2">
+  {fee.fee_type}
+</h2>
 
+<p className="text-gray-600 mb-4">
+  Semester {fee.semester}
+</p>
               <h1 className="text-5xl font-bold text-blue-600 mb-4">
                 ₹{fee.amount}
               </h1>

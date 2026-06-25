@@ -21,6 +21,7 @@ import ChangePassword from "./pages/ChangePassword"
 import Notices from "./pages/Notices"
 import Attendance from "./pages/Attendance"
 import FeePortal from "./pages/FeePortal"
+import AdminFees from "./pages/AdminFees"
 
 function App() {
   const role = getUserRole()
@@ -99,6 +100,10 @@ function App() {
 <Route
   path="/fees"
   element={<FeePortal />}
+/>
+<Route
+  path="/admin-fees"
+  element={<AdminFees />}
 />
 
                   </Routes>
