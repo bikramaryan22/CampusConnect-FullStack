@@ -53,6 +53,18 @@ app.add_middleware(
 
 # TEMPORARY - reset database
 models.Base.metadata.create_all(bind=engine)
+from sqlalchemy import text
+
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text(
+                "ALTER TABLE students ADD COLUMN photo TEXT"
+            )
+        )
+        conn.commit()
+    except Exception:
+        pass
 
 
 # Database Dependency

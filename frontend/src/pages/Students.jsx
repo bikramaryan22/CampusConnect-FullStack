@@ -212,9 +212,13 @@ setCgpa("")
 
 } catch (error) {
 
-  console.log(error)
+  console.log("FULL ERROR:", error)
 
-  alert("Operation Failed")
+  console.log("RESPONSE:", error.response)
+
+  console.log("DATA:", error.response?.data)
+
+  alert(JSON.stringify(error.response?.data))
 
 }
   }
