@@ -1,5 +1,8 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi import UploadFile, File
+import shutil
+from fastapi.staticfiles import StaticFiles
 from fastapi import HTTPException
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
@@ -9,6 +12,7 @@ from fastapi import Header
 from datetime import datetime
 from fastapi.responses import FileResponse
 from reportlab.pdfgen import canvas
+
 import os
 
 import models
@@ -28,6 +32,12 @@ from security import (
 )
 
 app = FastAPI()
+
+app.mount(
+    "/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -225,7 +235,8 @@ def create_student(
         phone=student_data.phone,
         branch=student_data.branch,
         year=student_data.year,
-        cgpa=0
+        cgpa=0,
+        photo=student.photo
     )
 
     db.add(db_student)
@@ -1131,3 +1142,26 @@ def download_receipt(
         filename=filename,
         media_type="application/pdf"
     )
+
+@app.post("/upload-photo")
+def upload_photo(
+    file: UploadFile = File(...)
+):
+
+    file_path = (
+        f"uploads/student_photos/{file.filename}"
+    )
+
+    with open(
+        file_path,
+        "wb"
+    ) as buffer:
+
+        shutil.copyfileobj(
+            file.file,
+            buffer
+        )
+
+    return {
+        "photo": file_path
+    }

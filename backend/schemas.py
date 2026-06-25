@@ -21,6 +21,7 @@ class StudentCreate(BaseModel):
     branch: str
     year: int
     cgpa: float
+    photo: str | None = None
 
 class AcademicCreate(BaseModel):
     student_id: int

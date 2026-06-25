@@ -47,6 +47,30 @@ useEffect(() => {
       </h1>
 
       <div className="bg-white rounded-xl shadow p-8">
+        <div className="flex justify-center mb-6">
+
+  {
+    profile.photo
+
+    ?
+
+    <img
+      src={`https://campusconnect-fullstack.onrender.com/${student.photo}`}
+      alt="Student"
+      className="w-36 h-36 rounded-full object-cover border-4 border-blue-500 shadow-lg"
+    />
+
+    :
+
+    <div
+      className="w-36 h-36 rounded-full bg-blue-600 text-white flex items-center justify-center text-6xl font-bold"
+    >
+      {student.name[0]}
+    </div>
+
+  }
+
+</div>
 
         <h2 className="text-2xl font-bold mb-6">
           {student.name}

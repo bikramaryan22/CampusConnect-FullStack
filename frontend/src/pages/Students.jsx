@@ -11,6 +11,7 @@ function Students() {
   const [name, setName] = useState("")
   const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
+const [photo, setPhoto] = useState(null)
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [branch, setBranch] = useState("")
@@ -19,6 +20,7 @@ const [password, setPassword] = useState("")
   const [editingId, setEditingId] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [search, setSearch] = useState("")
+
 
   const fetchStudents = () => {
 
@@ -115,6 +117,38 @@ const [password, setPassword] = useState("")
       const token =
   localStorage.getItem("token")
 
+  let photoPath = ""
+
+if (photo) {
+
+  const formData =
+    new FormData()
+
+  formData.append(
+    "file",
+    photo
+  )
+
+  const upload =
+    await axios.post(
+
+      "https://campusconnect-fullstack.onrender.com/upload-photo",
+
+      formData,
+
+      {
+        headers: {
+          "Content-Type":
+            "multipart/form-data"
+        }
+      }
+
+    )
+
+  photoPath =
+    upload.data.photo
+
+}
   const studentData = {
   username,
   password,
@@ -123,7 +157,8 @@ const [password, setPassword] = useState("")
   phone,
   branch,
   year: Number(year),
-  cgpa: Number(cgpa)
+  cgpa: Number(cgpa),
+  photo: photoPath
 }
 
   if (editingId) {
@@ -162,6 +197,7 @@ const [password, setPassword] = useState("")
 
   setUsername("")
 setPassword("")
+setPhoto(null)
 
 setName("")
 setEmail("")
@@ -235,6 +271,15 @@ role === "admin" && (
       setPassword(e.target.value)
     }
   />
+  <input
+  type="file"
+  accept="image/*"
+  onChange={(e) =>
+    setPhoto(e.target.files[0])
+  }
+/>
+
+<br /><br />
 
   <br /><br />
 

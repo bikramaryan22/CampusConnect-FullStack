@@ -126,19 +126,31 @@ function FeePortal() {
               </p>
 
               {
-                fee.status !== "Paid" && (
+  fee.status !== "Paid"
 
-                  <button
-                    onClick={() =>
-                      payFee(fee.id)
-                    }
-                    className="bg-green-600 text-white px-5 py-3 rounded-lg"
-                  >
-                    Pay Now
-                  </button>
+  ?
 
-                )
-              }
+  <button
+    onClick={() =>
+      payFee(fee.id)
+    }
+    className="bg-green-600 text-white px-5 py-3 rounded-lg"
+  >
+    Pay Now
+  </button>
+
+  :
+
+  <a
+    href={`https://campusconnect-fullstack.onrender.com/receipt/${fee.id}`}
+    target="_blank"
+    rel="noreferrer"
+    className="bg-blue-600 text-white px-5 py-3 rounded-lg inline-block"
+  >
+    📄 Download Receipt
+  </a>
+
+}
 
             </div>
 

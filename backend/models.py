@@ -25,6 +25,7 @@ class Student(Base):
     branch = Column(String)
     year = Column(Integer)
     cgpa = Column(Float, default=0)
+    photo = Column(String, nullable=True)
 
 class AcademicRecord(Base):
     __tablename__ = "academic_records"
