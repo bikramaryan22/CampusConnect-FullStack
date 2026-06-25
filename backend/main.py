@@ -77,6 +77,38 @@ with engine.connect() as conn:
         print("✅ semester column added")
     except Exception as e:
         print("Semester migration:", e)
+# Fee semester
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text("ALTER TABLE fees ADD COLUMN semester INTEGER")
+        )
+        conn.commit()
+        print("✅ semester column added")
+    except Exception as e:
+        print("semester:", e)
+
+# Fee type
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text("ALTER TABLE fees ADD COLUMN fee_type TEXT")
+        )
+        conn.commit()
+        print("✅ fee_type column added")
+    except Exception as e:
+        print("fee_type:", e)
+
+# Fee status
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text("ALTER TABLE fees ADD COLUMN status TEXT")
+        )
+        conn.commit()
+        print("✅ status column added")
+    except Exception as e:
+        print("status:", e)
 
 
 # Database Dependency
