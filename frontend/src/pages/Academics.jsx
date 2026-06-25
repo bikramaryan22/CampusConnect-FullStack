@@ -172,7 +172,22 @@ useEffect(() => {
   role === "admin" && (
 
     <button
-      className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+      className="
+bg-gradient-to-r
+from-blue-600
+to-indigo-700
+text-white
+font-semibold
+px-5
+py-3
+rounded-xl
+shadow-lg
+hover:scale-105
+hover:shadow-xl
+active:scale-95
+transition-all
+duration-300
+"
       onClick={() =>
         setShowForm(!showForm)
       }
@@ -206,7 +221,18 @@ useEffect(() => {
         )
 
       }}
-      className="border p-3 rounded-lg mb-4"
+      className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
     >
 
       {
@@ -243,7 +269,7 @@ useEffect(() => {
 
       {showForm && (
 
-        <div className="bg-white rounded-xl shadow p-6 mb-6">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6 mb-6">
 
           <form onSubmit={handleSubmit}>
 
@@ -254,7 +280,18 @@ useEffect(() => {
               onChange={(e) =>
                 setSemester(e.target.value)
               }
-              className="border p-3 rounded-lg mr-3"
+              className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
             />
 
             <input
@@ -265,7 +302,18 @@ useEffect(() => {
               onChange={(e) =>
                 setGpa(e.target.value)
               }
-              className="border p-3 rounded-lg mr-3"
+              className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
             />
 
             <input
@@ -275,7 +323,18 @@ useEffect(() => {
               onChange={(e) =>
                 setBacklogs(e.target.value)
               }
-              className="border p-3 rounded-lg mr-3"
+              className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
             />
 
             <button
@@ -291,13 +350,13 @@ useEffect(() => {
 
       )}
 
-      <div className="bg-white rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 overflow-hidden">
 
         <table className="w-full">
 
           <thead>
 
-            <tr className="bg-slate-800 text-white">
+            <tr className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
 
               <th className="p-4 text-left">
                 Semester

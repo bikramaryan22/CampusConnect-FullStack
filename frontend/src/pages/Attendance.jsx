@@ -120,7 +120,7 @@ function Attendance() {
       {
         role === "admin" && (
 
-          <div className="bg-white rounded-xl shadow p-6 mb-6">
+          <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6 mb-6">
 
             <form
               onSubmit={handleSubmit}
@@ -141,7 +141,18 @@ function Attendance() {
                   )
 
                 }}
-                className="border p-3 rounded-lg mr-3"
+                className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
               >
 
                 {
@@ -170,7 +181,18 @@ function Attendance() {
                     e.target.value
                   )
                 }
-                className="border p-3 rounded-lg mr-3"
+                className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
               />
 
               <input
@@ -182,7 +204,18 @@ function Attendance() {
                     e.target.value
                   )
                 }
-                className="border p-3 rounded-lg mr-3"
+                className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
               />
 
               <input
@@ -194,7 +227,7 @@ function Attendance() {
                     e.target.value
                   )
                 }
-                className="border p-3 rounded-lg mr-3"
+                
               />
 
               <button
@@ -211,13 +244,13 @@ function Attendance() {
         )
       }
 
-      <div className="bg-white rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 overflow-hidden">
 
         <table className="w-full">
 
           <thead>
 
-            <tr className="bg-slate-800 text-white">
+            <tr className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
 
               <th className="p-4 text-left">
                 Subject

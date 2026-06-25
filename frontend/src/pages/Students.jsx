@@ -12,6 +12,7 @@ function Students() {
   const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
 const [photo, setPhoto] = useState(null)
+const [preview, setPreview] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [branch, setBranch] = useState("")
@@ -237,7 +238,22 @@ setCgpa("")
 role === "admin" && (
 
   <button
-    className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+    className="
+bg-gradient-to-r
+from-blue-600
+to-indigo-700
+text-white
+font-semibold
+px-5
+py-3
+rounded-xl
+shadow-lg
+hover:scale-105
+hover:shadow-xl
+active:scale-95
+transition-all
+duration-300
+"
     onClick={() => setShowForm(!showForm)}
   >
     {showForm
@@ -253,117 +269,168 @@ role === "admin" && (
 
     {showForm && (
 
-<div className="bg-white p-6 rounded-xl shadow mb-6">
-      <form onSubmit={handleSubmit}>
+<div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 mb-6">
+      <form
+  onSubmit={handleSubmit}
+  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+>
 
   <input
     type="text"
     placeholder="Username"
     value={username}
-    onChange={(e) =>
-      setUsername(e.target.value)
-    }
+    onChange={(e)=>setUsername(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
   />
-
-  <br /><br />
 
   <input
     type="password"
     placeholder="Password"
     value={password}
-    onChange={(e) =>
-      setPassword(e.target.value)
-    }
+    onChange={(e)=>setPassword(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
   />
-  <input
-  type="file"
-  accept="image/*"
-  onChange={(e) =>
-    setPhoto(e.target.files[0])
-  }
-/>
-
-<br /><br />
-
-  <br /><br />
 
   <input
     type="text"
-    placeholder="Name"
+    placeholder="Student Name"
     value={name}
-    onChange={(e) => setName(e.target.value)}
+    onChange={(e)=>setName(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
   />
 
-        <br /><br />
+  <input
+    type="email"
+    placeholder="Email"
+    value={email}
+    onChange={(e)=>setEmail(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+  />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+  <input
+    type="text"
+    placeholder="Phone Number"
+    value={phone}
+    onChange={(e)=>setPhone(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+  />
 
-        <br /><br />
+  <input
+    type="text"
+    placeholder="Branch"
+    value={branch}
+    onChange={(e)=>setBranch(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+  />
 
-        <input
-          type="tel"
-          maxLength="10"
-          placeholder="Phone"
-          value={phone}
-          onChange={(e) => {
+  <select
+    value={year}
+    onChange={(e)=>setYear(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+  >
+    <option value="">Select Year</option>
+    <option value="1">1st Year</option>
+    <option value="2">2nd Year</option>
+    <option value="3">3rd Year</option>
+    <option value="4">4th Year</option>
+  </select>
 
-            const value = e.target.value
+  <input
+    type="number"
+    placeholder="CGPA"
+    step="0.1"
+    value={cgpa}
+    onChange={(e)=>setCgpa(e.target.value)}
+    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+  />
 
-            if (/^\d*$/.test(value) && value.length <= 10) {
-              setPhone(value)
-            }
+  <div className="md:col-span-2">
 
-          }}
-        />
+    <label className="block mb-2 font-semibold">
+      Student Photo
+    </label>
 
-        <br /><br />
+    <div className="flex flex-col items-center">
 
-        <input
-          type="text"
-          placeholder="Branch"
-          value={branch}
-          onChange={(e) => setBranch(e.target.value)}
-        />
+  {
 
-        <br /><br />
+    preview
 
-        <select
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-        >
-          <option value="">Select Year</option>
-          <option value="1">1st Year</option>
-          <option value="2">2nd Year</option>
-          <option value="3">3rd Year</option>
-          <option value="4">4th Year</option>
-        </select>
+    ?
 
-        <br /><br />
+    <img
+      src={preview}
+      alt="Preview"
+      className="w-40 h-40 rounded-full object-cover border-4 border-blue-500 shadow-lg mb-4"
+    />
 
-        <input
-          type="number"
-          step="0.1"
-          placeholder="CGPA"
-          value={cgpa}
-          onChange={(e) => setCgpa(e.target.value)}
-        />
+    :
 
-        <br /><br />
+    <div className="w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center text-6xl mb-4">
 
-        <button type="submit">
+      👤
 
-  {editingId
-    ? "Update Student"
-    : "Add Student"}
+    </div>
 
-</button>
+  }
 
-      </form>
+  <label
+    className="
+    cursor-pointer
+    bg-blue-600
+    text-white
+    px-6
+    py-3
+    rounded-xl
+    hover:bg-blue-700
+    transition
+    "
+  >
+
+    Choose Photo
+
+    <input
+      hidden
+      type="file"
+      accept="image/*"
+      onChange={(e)=>{
+
+        const file =
+          e.target.files[0]
+
+        setPhoto(file)
+
+        if(file){
+
+          setPreview(
+            URL.createObjectURL(file)
+          )
+
+        }
+
+      }}
+    />
+
+  </label>
+
+</div>
+
+  </div>
+
+  <div className="md:col-span-2">
+
+    <button
+      type="submit"
+      className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-3 rounded-xl font-semibold hover:scale-[1.02] transition"
+    >
+      {editingId
+        ? "Update Student"
+        : "Add Student"}
+    </button>
+
+  </div>
+
+</form>
       </div>
 
 )}
@@ -378,34 +445,45 @@ role === "admin" && (
     onChange={(e) =>
       setSearch(e.target.value)
     }
-    className="border p-3 rounded-lg w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
   />
 
 </div>
 
-      <div className="bg-white rounded-xl shadow overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 overflow-hidden">
 
   <table className="w-full">
 
         <thead>
 
           <tr>
-            <th className="bg-slate-800 text-white p-4 text-left">
+            <th className="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-4 text-left">
   Name
 </th>
-          <th className="bg-slate-800 text-white p-4 text-left">
+          <th className="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-4 text-left">
   Branch
 </th>
 
-<th className="bg-slate-800 text-white p-4 text-left">
+<th className="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-4 text-left">
   Year
 </th>
 
-<th className="bg-slate-800 text-white p-4 text-left">
+<th className="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-4 text-left">
   CGPA
 </th>
 
-<th className="bg-slate-800 text-white p-4 text-left">
+<th className="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-4 text-left">
   Actions
 </th>  
           </tr>
@@ -424,10 +502,54 @@ role === "admin" && (
   )
   .map((student) => (
 
-            <tr key={student.id}>
+            <tr
+  key={student.id}
+  className="
+  hover:bg-blue-50
+  transition-all
+  duration-300
+  "
+>
 
-              <td className="p-4 border-b">
-  {student.name}
+<td className="p-4 border-b">
+
+  <div className="flex items-center gap-4">
+
+    {
+      student.photo
+
+      ?
+
+      <img
+        src={`https://campusconnect-fullstack.onrender.com/${student.photo}`}
+        alt={student.name}
+        className="w-12 h-12 rounded-full object-cover border"
+      />
+
+      :
+
+      <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+
+        {student.name[0]}
+
+      </div>
+
+    }
+
+    <div>
+
+      <h3 className="font-semibold">
+        {student.name}
+      </h3>
+
+      <p className="text-sm text-gray-500">
+        {student.email}
+      </p>
+
+    </div>
+
+  </div>
+
 </td>
               <td className="p-4 border-b">
   {student.branch}

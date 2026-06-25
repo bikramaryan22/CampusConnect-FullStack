@@ -46,7 +46,7 @@ useEffect(() => {
         My Profile
       </h1>
 
-      <div className="bg-white rounded-xl shadow p-8">
+      <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-8">
         <div className="flex justify-center mb-6">
 
   {

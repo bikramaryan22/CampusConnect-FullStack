@@ -85,35 +85,35 @@ function AdminDashboard() {
 
       <div className="grid md:grid-cols-5 gap-6">
 
-        <div className="bg-white rounded-xl shadow p-6">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6">
           <h3>Total Students</h3>
           <h1 className="text-4xl font-bold mt-2">
             {totalStudents}
           </h1>
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6">
           <h3>Placement Drives</h3>
           <h1 className="text-4xl font-bold mt-2">
             {placementDrives}
           </h1>
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6">
           <h3>Applications</h3>
           <h1 className="text-4xl font-bold mt-2">
             {applications}
           </h1>
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6">
           <h3>Selected</h3>
           <h1 className="text-4xl font-bold mt-2">
             {selectedStudents}
           </h1>
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6">
           <h3>Average CGPA</h3>
           <h1 className="text-4xl font-bold mt-2">
             {averageCgpa}

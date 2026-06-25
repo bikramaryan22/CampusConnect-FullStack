@@ -82,7 +82,14 @@ function Sidebar() {
         </Link>
         <Link
   to="/admin-fees"
-  className="p-3 rounded-lg hover:bg-slate-700"
+  className="
+p-3
+rounded-xl
+hover:bg-slate-800
+hover:translate-x-2
+transition-all
+duration-200
+"
 >
   💰 Fee Management
 </Link>
@@ -112,7 +119,14 @@ function Sidebar() {
         </Link>
         <Link
   to="/fees"
-  className="p-3 rounded-lg hover:bg-slate-700"
+  className="
+p-3
+rounded-xl
+hover:bg-slate-800
+hover:translate-x-2
+transition-all
+duration-200
+"
 >
   💰 Fees
 </Link>

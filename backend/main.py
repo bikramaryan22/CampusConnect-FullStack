@@ -215,6 +215,8 @@ def create_student(
     ).filter(
         models.User.username == student_data.username
     ).first()
+    print("USERNAME:", student_data.username)
+    print("FOUND:", existing_user)
 
     if existing_user:
 
@@ -248,7 +250,7 @@ def create_student(
         branch=student_data.branch,
         year=student_data.year,
         cgpa=0,
-        photo=student.photo
+        photo=student_data.photo
     )
 
     db.add(db_student)
@@ -317,6 +319,7 @@ def update_student(
     student.branch = student_data.branch
     student.year = student_data.year
     student.cgpa = student_data.cgpa
+    student.photo = student_data.photo
 
     db.commit()
 

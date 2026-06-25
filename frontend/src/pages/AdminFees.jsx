@@ -83,7 +83,7 @@ function AdminFees() {
         💰 Fee Management
       </h1>
 
-      <div className="bg-white rounded-xl shadow p-6">
+      <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6">
 
         <form
           onSubmit={createFee}

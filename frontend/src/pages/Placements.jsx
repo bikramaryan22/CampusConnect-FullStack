@@ -279,7 +279,22 @@ const updateStatus = async (
     role === "admin" && (
 
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+        className="
+bg-gradient-to-r
+from-blue-600
+to-indigo-700
+text-white
+font-semibold
+px-5
+py-3
+rounded-xl
+shadow-lg
+hover:scale-105
+hover:shadow-xl
+active:scale-95
+transition-all
+duration-300
+"
         onClick={() =>
           setShowForm(!showForm)
         }
@@ -296,7 +311,7 @@ const updateStatus = async (
     {
   showForm && (
 
-    <div className="bg-white rounded-xl shadow p-6 mb-6">
+    <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6 mb-6">
 
       <form
         onSubmit={addDrive}
@@ -381,7 +396,7 @@ const updateStatus = async (
 
           <div
             key={drive.id}
-            className="bg-white rounded-xl shadow p-6"
+            className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6"
           >
 
             <div className="flex justify-between items-center mb-3">
@@ -524,7 +539,7 @@ const updateStatus = async (
 
         {applications.length === 0 ? (
 
-          <div className="bg-white rounded-xl shadow p-4">
+          <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-4">
             No Applications Yet
           </div>
 
@@ -541,7 +556,7 @@ const updateStatus = async (
 
               <div
                 key={app.id}
-                className="bg-white rounded-xl shadow p-4"
+                className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-4"
               >
 
                 <h3 className="font-bold text-lg">
@@ -592,7 +607,7 @@ const updateStatus = async (
         Placement Applications
       </h2>
 
-      <div className="bg-white rounded-xl shadow p-6 hover:shadow-xl transition">
+      <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6 hover:shadow-xl transition">
 
         {allApplications.map((app) => (
 

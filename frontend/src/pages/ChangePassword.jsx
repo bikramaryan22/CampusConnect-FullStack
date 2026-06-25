@@ -48,7 +48,7 @@ function ChangePassword() {
 
     <div className="max-w-md mx-auto mt-20">
 
-      <div className="bg-white rounded-xl shadow p-6">
+      <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6">
 
         <h1 className="text-3xl font-bold mb-6">
           Change Password
@@ -65,7 +65,18 @@ function ChangePassword() {
                 e.target.value
               )
             }
-            className="border p-3 rounded-lg w-full mb-4"
+            className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
           />
 
           <input
@@ -77,7 +88,18 @@ function ChangePassword() {
                 e.target.value
               )
             }
-            className="border p-3 rounded-lg w-full mb-4"
+            className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
           />
 
           <button
