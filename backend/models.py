@@ -88,5 +88,7 @@ class Fee(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     student_id = Column(Integer)
+    semester = Column(Integer)
+    fee_type = Column(String)
     amount = Column(Float)
     status = Column(String)

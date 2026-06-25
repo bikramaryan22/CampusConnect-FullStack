@@ -69,4 +69,6 @@ class AttendanceCreate(BaseModel):
 
 class FeeCreate(BaseModel):
     student_id: int
+    semester: int
+    fee_type: str
     amount: float

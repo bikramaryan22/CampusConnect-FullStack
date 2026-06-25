@@ -20,6 +20,7 @@ import { getUserRole } from "./utils/auth"
 import ChangePassword from "./pages/ChangePassword"
 import Notices from "./pages/Notices"
 import Attendance from "./pages/Attendance"
+import FeePortal from "./pages/FeePortal"
 
 function App() {
   const role = getUserRole()
@@ -94,6 +95,10 @@ function App() {
 <Route
   path="/profile"
   element={<Profile />}
+/>
+<Route
+  path="/fees"
+  element={<FeePortal />}
 />
 
                   </Routes>

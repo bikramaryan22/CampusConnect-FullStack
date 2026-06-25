@@ -104,6 +104,12 @@ function Sidebar() {
         >
           🏆 Sports
         </Link>
+        <Link
+  to="/fees"
+  className="p-3 rounded-lg hover:bg-slate-700"
+>
+  💰 Fees
+</Link>
 
       </div>
 
