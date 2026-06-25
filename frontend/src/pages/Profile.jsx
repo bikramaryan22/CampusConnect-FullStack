@@ -50,7 +50,7 @@ useEffect(() => {
         <div className="flex justify-center mb-6">
 
   {
-    profile.photo
+    student.photo
 
     ?
 

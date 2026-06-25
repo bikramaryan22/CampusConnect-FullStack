@@ -67,9 +67,13 @@ function App() {
 />
 
                     <Route
-                      path="/students"
-                      element={<Students />}
-                    />
+  path="/students"
+  element={
+    role === "admin"
+      ? <Students />
+      : <Dashboard />
+  }
+/>
                     <Route
   path="/notices"
   element={<Notices />}
@@ -95,15 +99,27 @@ function App() {
                     />
 <Route
   path="/profile"
-  element={<Profile />}
+  element={
+    role === "student"
+      ? <Profile />
+      : <AdminDashboard />
+  }
 />
 <Route
   path="/fees"
-  element={<FeePortal />}
+  element={
+    role === "student"
+      ? <FeePortal />
+      : <AdminDashboard />
+  }
 />
 <Route
   path="/admin-fees"
-  element={<AdminFees />}
+  element={
+    role === "admin"
+      ? <AdminFees />
+      : <Dashboard />
+  }
 />
 
                   </Routes>

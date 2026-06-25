@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import { getUserRole } from "../utils/auth"
 
 function Notices() {
 
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [notices, setNotices] = useState([])
+  const role = getUserRole()
 
   const fetchNotices = () => {
 
@@ -80,39 +82,63 @@ function Notices() {
         📢 Notice Management
       </h1>
 
-      <div className="bg-white rounded-xl shadow p-6 mb-8">
+      {
+  role === "admin" && (
 
-        <form onSubmit={handleSubmit}>
+    <div className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-6 mb-8">
 
-          <input
-            type="text"
-            placeholder="Notice Title"
-            value={title}
-            onChange={(e) =>
-              setTitle(e.target.value)
-            }
-            className="border p-3 rounded-lg w-full mb-4"
-          />
+      <form onSubmit={handleSubmit}>
 
-          <textarea
-            placeholder="Notice Description"
-            value={description}
-            onChange={(e) =>
-              setDescription(e.target.value)
-            }
-            className="border p-3 rounded-lg w-full mb-4"
-          />
+        <input
+          type="text"
+          placeholder="Notice Title"
+          value={title}
+          onChange={(e)=>setTitle(e.target.value)}
+          className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
+        />
 
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-5 py-3 rounded-lg"
-          >
-            Add Notice
-          </button>
+        <textarea
+          placeholder="Notice Description"
+          value={description}
+          onChange={(e)=>setDescription(e.target.value)}
+          className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
+        />
 
-        </form>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-5 py-3 rounded-lg"
+        >
+          Add Notice
+        </button>
 
-      </div>
+      </form>
+
+    </div>
+
+  )
+}
 
       <div className="space-y-4">
 
@@ -121,7 +147,7 @@ function Notices() {
 
             <div
               key={notice.id}
-              className="bg-white rounded-xl shadow p-5"
+              className="bg-white rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 p-5"
             >
 
               <h3 className="text-xl font-bold">

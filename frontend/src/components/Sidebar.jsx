@@ -80,9 +80,12 @@ function Sidebar() {
         >
           📚 Academics
         </Link>
-        <Link
-  to="/admin-fees"
-  className="
+        {
+  role === "admin" && (
+
+    <Link
+      to="/admin-fees"
+      className="
 p-3
 rounded-xl
 hover:bg-slate-800
@@ -90,9 +93,12 @@ hover:translate-x-2
 transition-all
 duration-200
 "
->
-  💰 Fee Management
-</Link>
+    >
+      💰 Fee Management
+    </Link>
+
+  )
+}
         <Link
   to="/notices"
   className="p-3 rounded-xl hover:bg-blue-600 transition"
