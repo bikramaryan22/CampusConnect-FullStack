@@ -65,13 +65,19 @@ function AdminFees() {
 
     }
 
-    catch (error) {
+   catch (error) {
 
-      console.log(error)
+  console.log(error)
 
-      alert("Failed")
+  console.log(error.response)
 
-    }
+  console.log(error.response?.data)
+
+  alert(
+    JSON.stringify(error.response?.data)
+  )
+
+}
 
   }
 

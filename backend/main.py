@@ -66,6 +66,18 @@ with engine.connect() as conn:
     except Exception:
         pass
 
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text(
+                "ALTER TABLE fees ADD COLUMN semester INTEGER"
+            )
+        )
+        conn.commit()
+        print("✅ semester column added")
+    except Exception as e:
+        print("Semester migration:", e)
+
 
 # Database Dependency
 def get_db():
