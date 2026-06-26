@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { getUserRole } from "../utils/auth"
 
+
 function Placements() {
   const role = getUserRole()
   const [drives, setDrives] = useState([])

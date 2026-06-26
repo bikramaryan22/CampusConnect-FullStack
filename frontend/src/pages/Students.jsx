@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { getUserRole } from "../utils/auth"
+import Tooltip from "../components/Tooltip"
 
 function Students() {
 
@@ -275,74 +276,196 @@ duration-300
   className="grid grid-cols-1 md:grid-cols-2 gap-5"
 >
 
-  <input
-    type="text"
-    placeholder="Username"
-    value={username}
-    onChange={(e)=>setUsername(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-  />
+  <div className="mb-4">
+
+<div className="flex items-center gap-2 mb-2">
+
+<label>
+
+Username
+
+</label>
+
+<Tooltip text="Username must be unique." />
+
+</div>
+
+<input
+type="text"
+value={username}
+onChange={(e)=>setUsername(e.target.value)}
+className="border border-gray-300 rounded-xl p-3 w-full"
+/>
+
+</div>
+
+  <div className="mb-4">
+
+<div className="flex items-center gap-2 mb-2">
+
+<label>
+
+Password
+
+</label>
+
+<Tooltip text="Default password for first login." />
+
+</div>
+
+<input
+type="password"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+className="border border-gray-300 rounded-xl p-3 w-full"
+/>
+
+</div>
+
+  <div className="mb-4">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      Student Name
+    </label>
+
+    <Tooltip text="Enter the student's full name." />
+
+  </div>
 
   <input
-    type="password"
-    placeholder="Password"
-    value={password}
-    onChange={(e)=>setPassword(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-  />
-
-  <input
     type="text"
-    placeholder="Student Name"
     value={name}
     onChange={(e)=>setName(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
   />
+
+</div>
+
+  <div className="mb-4">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      Email
+    </label>
+
+    <Tooltip text="Enter a valid email address." />
+
+  </div>
 
   <input
     type="email"
-    placeholder="Email"
     value={email}
     onChange={(e)=>setEmail(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
   />
 
+</div>
+
+  <div className="mb-4">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      Phone Number
+    </label>
+
+    <Tooltip text="Phone number must contain exactly 10 digits." />
+
+  </div>
+
   <input
-    type="text"
-    placeholder="Phone Number"
+    type="tel"
+    maxLength="10"
     value={phone}
-    onChange={(e)=>setPhone(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    onChange={(e)=>{
+
+      const value=e.target.value
+
+      if(/^\d*$/.test(value) && value.length<=10){
+
+        setPhone(value)
+
+      }
+
+    }}
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
   />
+
+</div>
+
+  <div className="mb-4">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      Branch
+    </label>
+
+    <Tooltip text="Select the student's department." />
+
+  </div>
 
   <input
     type="text"
-    placeholder="Branch"
     value={branch}
     onChange={(e)=>setBranch(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
   />
+
+</div>
+
+  <div className="mb-4">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      Academic Year
+    </label>
+
+    <Tooltip text="Choose the student's current academic year." />
+
+  </div>
 
   <select
     value={year}
     onChange={(e)=>setYear(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    className="border border-gray-300 rounded-xl p-3 w-full"
   >
+
     <option value="">Select Year</option>
     <option value="1">1st Year</option>
     <option value="2">2nd Year</option>
     <option value="3">3rd Year</option>
     <option value="4">4th Year</option>
+
   </select>
+
+</div>
+
+  <div className="mb-4">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      CGPA
+    </label>
+
+    <Tooltip text="Enter CGPA between 0 and 10." />
+
+  </div>
 
   <input
     type="number"
-    placeholder="CGPA"
     step="0.1"
     value={cgpa}
     onChange={(e)=>setCgpa(e.target.value)}
-    className="border rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
   />
+
+</div>
 
   <div className="md:col-span-2">
 

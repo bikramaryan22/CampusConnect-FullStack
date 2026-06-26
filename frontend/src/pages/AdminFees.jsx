@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import Tooltip from "../components/Tooltip"
 
 function AdminFees() {
 
@@ -96,89 +97,135 @@ function AdminFees() {
           className="grid gap-4"
         >
 
-          <select
-            value={studentId}
-            onChange={(e)=>
-              setStudentId(e.target.value)
-            }
-            className="border p-3 rounded"
-          >
+          <div className="mb-4">
 
-            {
-              students.map(student=>(
+  <div className="flex items-center gap-2 mb-2">
 
-                <option
-                  key={student.id}
-                  value={student.id}
-                >
-                  {student.name}
-                </option>
+    <label className="font-medium">
+      Student
+    </label>
 
-              ))
-            }
+    <Tooltip text="Select the student for whom the fee is being created." />
 
-          </select>
+  </div>
 
-          <select
-            value={semester}
-            onChange={(e)=>
-              setSemester(e.target.value)
-            }
-            className="border p-3 rounded"
-          >
+  <select
+    value={studentId}
+    onChange={(e)=>setStudentId(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
+  >
 
-            <option value="">
-              Select Semester
-            </option>
+    {
+      students.map(student=>(
 
-            {[1,2,3,4,5,6,7,8].map(sem=>(
+        <option
+          key={student.id}
+          value={student.id}
+        >
+          {student.name}
+        </option>
 
-              <option
-                key={sem}
-                value={sem}
-              >
-                Semester {sem}
-              </option>
+      ))
+    }
 
-            ))}
+  </select>
 
-          </select>
+</div>
+<div className="mb-4">
 
-          <select
-            value={feeType}
-            onChange={(e)=>
-              setFeeType(e.target.value)
-            }
-            className="border p-3 rounded"
-          >
+  <div className="flex items-center gap-2 mb-2">
 
-            <option>
-              Semester Fee
-            </option>
+    <label className="font-medium">
+      Semester
+    </label>
 
-            <option>
-              Exam Fee
-            </option>
+    <Tooltip text="Choose the semester for which this fee is applicable." />
 
-            <option>
-              Hostel Fee
-            </option>
+  </div>
 
-            <option>
-              Library Fine
-            </option>
+  <select
+    value={semester}
+    onChange={(e)=>setSemester(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
+  >
 
-          </select>
+    <option value="">
+      Select Semester
+    </option>
 
-          <input
-            type="number"
-            placeholder="Amount"
-            value={amount}
-            onChange={(e)=>
-              setAmount(e.target.value)
-            }
-            className="border p-3 rounded"
-          />
+    {[1,2,3,4,5,6,7,8].map((sem)=>(
+
+      <option
+        key={sem}
+        value={sem}
+      >
+        Semester {sem}
+      </option>
+
+    ))}
+
+  </select>
+
+</div>
+
+          <div className="mb-4">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      Fee Type
+    </label>
+
+    <Tooltip text="Select the category of fee to be charged." />
+
+  </div>
+
+  <select
+    value={feeType}
+    onChange={(e)=>setFeeType(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
+  >
+
+    <option>
+      Semester Fee
+    </option>
+
+    <option>
+      Exam Fee
+    </option>
+
+    <option>
+      Hostel Fee
+    </option>
+
+    <option>
+      Library Fine
+    </option>
+
+  </select>
+
+</div>
+
+          <div className="mb-6">
+
+  <div className="flex items-center gap-2 mb-2">
+
+    <label className="font-medium">
+      Amount (₹)
+    </label>
+
+    <Tooltip text="Enter the fee amount in Indian Rupees." />
+
+  </div>
+
+  <input
+    type="number"
+    value={amount}
+    onChange={(e)=>setAmount(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
+  />
+
+</div>
 
           <button
             className="bg-blue-600 text-white p-3 rounded"
