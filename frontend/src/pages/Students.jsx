@@ -81,6 +81,8 @@ const [preview, setPreview] = useState("")
   const editStudent = (student) => {
 
   setEditingId(student.id)
+  setShowForm(true)
+  
 
   setName(student.name)
   setEmail(student.email)
@@ -151,49 +153,57 @@ if (photo) {
     upload.data.photo
 
 }
-  const studentData = {
-  username,
-  password,
-  name,
-  email,
-  phone,
-  branch,
-  year: Number(year),
-  cgpa: Number(cgpa),
-  photo: photoPath
-}
-
   if (editingId) {
 
-    await axios.put(
-  `https://campusconnect-fullstack.onrender.com/students/${editingId}`,
-  studentData,
-  {
-    headers: {
-      Authorization:
-        `Bearer ${token}`
+  const updateData = {
+    name,
+    email,
+    phone,
+    branch,
+    year: Number(year),
+    cgpa: Number(cgpa),
+    photo: photoPath
+  }
+
+  await axios.put(
+    `https://campusconnect-fullstack.onrender.com/students/${editingId}`,
+    updateData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
+  )
+
+  alert("Student Updated Successfully")
+
+} else {
+
+  const studentData = {
+    username,
+    password,
+    name,
+    email,
+    phone,
+    branch,
+    year: Number(year),
+    cgpa: Number(cgpa),
+    photo: photoPath
   }
-)
 
-    alert("Student Updated Successfully")
-
-  } else {
-
-    await axios.post(
-  "https://campusconnect-fullstack.onrender.com/students",
-  studentData,
-  {
-    headers: {
-      Authorization:
-        `Bearer ${token}`
+  await axios.post(
+    "https://campusconnect-fullstack.onrender.com/students",
+    studentData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  }
-)
+  )
 
-    alert("Student Added Successfully")
+  alert("Student Added Successfully")
 
-  }
+}
 
   setEditingId(null)
 

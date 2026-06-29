@@ -23,6 +23,15 @@ class StudentCreate(BaseModel):
     cgpa: float
     photo: str | None = None
 
+class StudentUpdate(BaseModel):
+    name: str
+    email: str
+    phone: str
+    branch: str
+    year: int
+    cgpa: float
+    photo: str | None = None
+
 class AcademicCreate(BaseModel):
     student_id: int
     semester: int

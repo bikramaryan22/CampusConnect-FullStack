@@ -340,7 +340,7 @@ def get_student(
 @app.put("/students/{student_id}")
 def update_student(
     student_id: int,
-    student_data: schemas.StudentCreate,
+    student_data: schemas.StudentUpdate,
     db: Session = Depends(get_db),
     admin=Depends(admin_required)
 ):
