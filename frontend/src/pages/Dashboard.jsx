@@ -22,6 +22,7 @@ function Dashboard() {
   const [averageCgpa, setAverageCgpa] = useState(0)
   const [placementStatus, setPlacementStatus] = useState({})
   const [notices, setNotices] = useState([])
+  const [academicRecords, setAcademicRecords] = useState([])
 
   useEffect(() => {
 
@@ -43,6 +44,30 @@ function Dashboard() {
   .then((res) => {
 
     setNotices(res.data)
+
+  })
+  const token = localStorage.getItem("token")
+
+axios
+  .get(
+    "https://campusconnect-fullstack.onrender.com/my-profile",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  )
+  .then((res) => {
+
+    axios
+      .get(
+        `https://campusconnect-fullstack.onrender.com/academics/${res.data.id}`
+      )
+      .then((academicRes) => {
+
+        setAcademicRecords(academicRes.data)
+
+      })
 
   })
 
@@ -118,39 +143,41 @@ function Dashboard() {
 
   <div className="flex flex-wrap gap-3">
 
-    <div className="bg-green-500 text-white px-5 py-3 rounded-full">
-      SEM I ✓
-    </div>
+  {[1,2,3,4,5,6,7,8].map((sem) => {
 
-    <div className="bg-green-500 text-white px-5 py-3 rounded-full">
-      SEM II ✓
-    </div>
+    const completed =
+      academicRecords.some(
+        (record) => record.semester === sem
+      )
 
-    <div className="bg-green-500 text-white px-5 py-3 rounded-full">
-      SEM III ✓
-    </div>
+    const current =
+      sem === academicRecords.length + 1
 
-    <div className="bg-blue-600 text-white px-5 py-3 rounded-full">
-      SEM IV
-    </div>
+    return (
 
-    <div className="bg-slate-200 px-5 py-3 rounded-full">
-      SEM V
-    </div>
+      <div
+        key={sem}
+        className={`px-5 py-3 rounded-full text-white font-medium
+          ${
+            completed
+              ? "bg-green-500"
+              : current
+              ? "bg-blue-600"
+              : "bg-slate-300 text-black"
+          }`}
+      >
 
-    <div className="bg-slate-200 px-5 py-3 rounded-full">
-      SEM VI
-    </div>
+        SEM {sem}
 
-    <div className="bg-slate-200 px-5 py-3 rounded-full">
-      SEM VII
-    </div>
+        {completed && " ✓"}
 
-    <div className="bg-slate-200 px-5 py-3 rounded-full">
-      SEM VIII
-    </div>
+      </div>
 
-  </div>
+    )
+
+  })}
+
+</div>
 
 </div>
 
