@@ -123,19 +123,25 @@ duration-200
         >
           🏆 Sports
         </Link>
-        <Link
-  to="/fees"
-  className="
-p-3
-rounded-xl
-hover:bg-slate-800
-hover:translate-x-2
-transition-all
-duration-200
-"
->
-  💰 Fees
-</Link>
+        {
+  role === "student" && (
+
+    <Link
+      to="/fees"
+      className="
+      p-3
+      rounded-xl
+      hover:bg-slate-800
+      hover:translate-x-2
+      transition-all
+      duration-200
+      "
+    >
+      💰 Fees
+    </Link>
+
+  )
+}
 
       </div>
 
