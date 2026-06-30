@@ -1,37 +1,96 @@
 import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
 import { getUserRole } from "../utils/auth"
 
 function Sidebar() {
   const role = getUserRole()
+  const [collapsed, setCollapsed] = useState(() => {
+
+  return localStorage.getItem("sidebar") === "collapsed"
+
+})
+
+useEffect(() => {
+
+  localStorage.setItem(
+
+    "sidebar",
+
+    collapsed ? "collapsed" : "expanded"
+
+  )
+
+}, [collapsed])
 
 
   return (
 
-  <div className="w-72 min-h-screen bg-slate-950 text-white flex flex-col shadow-2xl">
+  <div
+  className={`
+    ${collapsed ? "w-20" : "w-72"}
+    min-h-screen
+    bg-slate-950
+    text-white
+    flex
+    flex-col
+    shadow-2xl
+    transition-all
+    duration-300
+  `}
+>
 
     <div className="border-b border-slate-800 p-6">
 
-      <div className="flex items-center gap-3">
+  <div className="flex justify-between items-center">
 
-        <div className="text-4xl">
+    {
+      !collapsed && (
+
+        <div className="flex items-center gap-3">
+
+          <div className="text-4xl">
+            🎓
+          </div>
+
+          <div>
+
+            <h1 className="text-2xl font-bold">
+              CampusConnect
+            </h1>
+
+            <p className="text-slate-400 text-sm">
+              Student Portal
+            </p>
+
+          </div>
+
+        </div>
+
+      )
+    }
+
+    {
+      collapsed && (
+
+        <div className="text-4xl mx-auto">
           🎓
         </div>
 
-        <div>
+      )
+    }
 
-          <h1 className="text-2xl font-bold">
-            CampusConnect
-          </h1>
+    <button
+      onClick={() =>
+        setCollapsed(!collapsed)
+      }
+      className="text-2xl hover:text-blue-400 transition"
+    >
+      ☰
+    </button>
 
-          <p className="text-slate-400 text-sm">
-            Student Portal
-          </p>
+  </div>
 
-        </div>
-
-      </div>
-
-    </div>
+</div>
 
     <div className="flex-1 p-4">
 
