@@ -20,6 +20,7 @@ import { getUserRole } from "./utils/auth"
 import ChangePassword from "./pages/ChangePassword"
 import Notices from "./pages/Notices"
 import Attendance from "./pages/Attendance"
+import StudentDetails from "./pages/StudentDetails"
 import FeePortal from "./pages/FeePortal"
 import AdminFees from "./pages/AdminFees"
 import { useEffect, useState } from "react"
@@ -100,6 +101,13 @@ useEffect(() => {
       ? <AdminDashboard />
       : <Dashboard />
   }
+/>
+<Route
+
+  path="/student/:id"
+
+  element={<StudentDetails />}
+
 />
 
                     <Route

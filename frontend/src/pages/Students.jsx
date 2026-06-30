@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { getUserRole } from "../utils/auth"
 import Tooltip from "../components/Tooltip"
@@ -6,6 +7,7 @@ import Tooltip from "../components/Tooltip"
 function Students() {
 
   const role = getUserRole()
+  const navigate = useNavigate()
 
   const [students, setStudents] = useState([])
 
@@ -22,6 +24,9 @@ const [preview, setPreview] = useState("")
   const [editingId, setEditingId] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [search, setSearch] = useState("")
+  const [branchFilter, setBranchFilter] = useState("")
+
+const [yearFilter, setYearFilter] = useState("")
 
 
   const fetchStudents = () => {
@@ -572,28 +577,73 @@ className="border border-gray-300 rounded-xl p-3 w-full"
 )}
 
       <hr />
-      <div className="mb-4">
+      <div className="grid md:grid-cols-4 gap-4 mb-6">
 
   <input
     type="text"
-    placeholder="Search Student..."
+    placeholder="🔍 Search Student..."
     value={search}
-    onChange={(e) =>
-      setSearch(e.target.value)
-    }
-    className="
-border
-border-gray-300
-rounded-xl
-p-3
-focus:ring-2
-focus:ring-blue-500
-focus:border-blue-500
-outline-none
-transition-all
-duration-200
-"
+    onChange={(e)=>setSearch(e.target.value)}
+    className="border rounded-xl p-3"
   />
+
+  <select
+    value={branchFilter}
+    onChange={(e)=>setBranchFilter(e.target.value)}
+    className="border rounded-xl p-3"
+  >
+
+    <option value="">
+      All Branches
+    </option>
+
+    <option>CSE</option>
+
+    <option>IT</option>
+
+    <option>ECE</option>
+
+    <option>EEE</option>
+
+    <option>MECH</option>
+
+  </select>
+
+  <select
+    value={yearFilter}
+    onChange={(e)=>setYearFilter(e.target.value)}
+    className="border rounded-xl p-3"
+  >
+
+    <option value="">
+      All Years
+    </option>
+
+    <option value="1">
+      First Year
+    </option>
+
+    <option value="2">
+      Second Year
+    </option>
+
+    <option value="3">
+      Third Year
+    </option>
+
+    <option value="4">
+      Fourth Year
+    </option>
+
+  </select>
+
+  <div className="bg-blue-600 text-white rounded-xl flex items-center justify-center font-semibold">
+
+    Total Students :
+    {" "}
+    {students.length}
+
+  </div>
 
 </div>
 
@@ -629,13 +679,44 @@ duration-200
         <tbody>
 
           {students
-  .filter((student) =>
+
+.filter((student)=>{
+
+  const matchesSearch =
+
     student.name
       .toLowerCase()
       .includes(
         search.toLowerCase()
       )
+
+  const matchesBranch =
+
+    branchFilter === ""
+
+    ||
+
+    student.branch === branchFilter
+
+  const matchesYear =
+
+    yearFilter === ""
+
+    ||
+
+    student.year === Number(yearFilter)
+
+  return (
+
+    matchesSearch &&
+
+    matchesBranch &&
+
+    matchesYear
+
   )
+
+})
   .map((student) => (
 
             <tr
@@ -700,34 +781,46 @@ duration-200
     {student.cgpa}
   </span>
 </td>
+<td className="p-4 border-b">
 
-              <td>
+  <div className="flex gap-2">
 
-  {
-    role === "admin" && (
+    <button
+      onClick={() =>
+        navigate(`/student/${student.id}`)
+      }
+      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg"
+    >
+      👁 View
+    </button>
 
-      <>
+    {
 
-        <button
-          className="bg-yellow-500 text-white px-3 py-1 rounded"
-          onClick={() => editStudent(student)}
-        >
-          Edit
-        </button>
+      role === "admin" && (
 
-        {" "}
+        <>
 
-        <button
-          className="bg-red-600 text-white px-3 py-1 rounded"
-          onClick={() => deleteStudent(student.id)}
-        >
-          Delete
-        </button>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg"
+            onClick={() => editStudent(student)}
+          >
+            ✏ Edit
+          </button>
 
-      </>
+          <button
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg"
+            onClick={() => deleteStudent(student.id)}
+          >
+            🗑 Delete
+          </button>
 
-    )
-  }
+        </>
+
+      )
+
+    }
+
+  </div>
 
 </td>
 
