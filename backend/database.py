@@ -8,6 +8,9 @@ DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "sqlite:///./campusconnect.db"
 )
+print("=" * 60)
+print(DATABASE_URL)
+print("=" * 60)
 
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace(
