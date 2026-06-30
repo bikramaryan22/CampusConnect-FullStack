@@ -55,6 +55,43 @@ app.add_middleware(
 models.Base.metadata.create_all(bind=engine)
 from sqlalchemy import text
 
+student_columns = [
+
+    ("roll_number", "TEXT"),
+
+    ("registration_number", "TEXT"),
+
+    ("admission_number", "TEXT"),
+
+    ("section", "TEXT"),
+
+    ("batch", "TEXT"),
+
+    ("admission_date", "TEXT")
+
+]
+
+with engine.connect() as conn:
+
+    for column, datatype in student_columns:
+
+        try:
+
+            conn.execute(
+                text(
+                    f"ALTER TABLE students ADD COLUMN {column} {datatype}"
+                )
+            )
+
+            conn.commit()
+
+            print(f"Added {column}")
+
+        except Exception as e:
+
+            print(f"{column}:", e)
+from sqlalchemy import text
+
 with engine.connect() as conn:
     try:
         conn.execute(
