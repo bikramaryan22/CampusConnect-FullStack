@@ -22,9 +22,39 @@ import Notices from "./pages/Notices"
 import Attendance from "./pages/Attendance"
 import FeePortal from "./pages/FeePortal"
 import AdminFees from "./pages/AdminFees"
-
+import { useEffect, useState } from "react"
 function App() {
   const role = getUserRole()
+  const [darkMode, setDarkMode] = useState(
+
+  localStorage.getItem("theme") === "dark"
+
+)
+useEffect(() => {
+
+  if (darkMode) {
+
+    document.documentElement.classList.add("dark")
+
+    localStorage.setItem(
+      "theme",
+      "dark"
+    )
+
+  }
+
+  else {
+
+    document.documentElement.classList.remove("dark")
+
+    localStorage.setItem(
+      "theme",
+      "light"
+    )
+
+  }
+
+}, [darkMode])
 
   return (
 
@@ -53,7 +83,13 @@ function App() {
 
                 <div className="flex-1 p-6">
 
-                  <Navbar />
+                  <Navbar
+
+  darkMode={darkMode}
+
+  setDarkMode={setDarkMode}
+
+/>
 
                   <Routes>
 

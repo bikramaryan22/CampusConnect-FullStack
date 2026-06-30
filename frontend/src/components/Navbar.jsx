@@ -2,11 +2,19 @@ import { getUserRole, getUsername } from "../utils/auth"
 import { useEffect, useState, useRef } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
-function Navbar() {
+function Navbar({
+
+  darkMode,
+
+  setDarkMode
+
+}) {
 
   const role = getUserRole()
   const username = getUsername()
   const [noticeCount, setNoticeCount] = useState(0)
+  const [notices, setNotices] = useState([])
+const [showNotifications, setShowNotifications] = useState(false)
   const [open, setOpen] = useState(false)
 
 const menuRef = useRef(null)
@@ -18,9 +26,11 @@ const menuRef = useRef(null)
     )
     .then((res) => {
 
-      setNoticeCount(res.data.length)
+  setNoticeCount(res.data.length)
 
-    })
+  setNotices(res.data)
+
+})
 
 }, [])
 useEffect(() => {
@@ -79,15 +89,95 @@ useEffect(() => {
 
     <div className="flex items-center gap-5">
 
-      <button className="relative text-2xl">
+      <div className="relative">
 
-        🔔
+  <button
+    onClick={() =>
+      setShowNotifications(!showNotifications)
+    }
+    className="relative text-2xl"
+  >
 
-        <span className="absolute -top-1 -right-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-          {noticeCount}
-        </span>
+    🔔
 
-      </button>
+    <span className="absolute -top-1 -right-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+      {noticeCount}
+    </span>
+
+  </button>
+
+  {
+
+    showNotifications && (
+
+      <div
+  className="
+  absolute
+  right-0
+  mt-3
+  w-80
+  bg-white
+  rounded-2xl
+  shadow-2xl
+  border
+  z-50
+  overflow-hidden
+  animate-[fadeIn_.2s_ease]
+  "
+>
+
+        <div className="p-4 font-bold border-b">
+
+          Notifications
+
+        </div>
+
+        {
+
+          notices.length === 0 ? (
+
+            <p className="p-4 text-gray-500">
+
+              No notifications
+
+            </p>
+
+          ) : (
+
+            notices.slice(0,5).map((notice) => (
+
+              <div
+                key={notice.id}
+                className="p-4 border-b hover:bg-slate-50"
+              >
+
+                <p className="font-semibold">
+
+                  📢 {notice.title}
+
+                </p>
+
+                <p className="text-sm text-gray-500 mt-1">
+
+                  {notice.description}
+
+                </p>
+
+              </div>
+
+            ))
+
+          )
+
+        }
+
+      </div>
+
+    )
+
+  }
+
+</div>
 
       <div
   className="relative"
@@ -131,7 +221,21 @@ useEffect(() => {
 
     open && (
 
-      <div className="absolute right-0 mt-3 w-60 bg-white rounded-2xl shadow-2xl border z-50 overflow-hidden">
+      <div
+  className="
+  absolute
+  right-0
+  mt-3
+  w-60
+  bg-white
+  rounded-2xl
+  shadow-2xl
+  border
+  z-50
+  overflow-hidden
+  animate-[fadeIn_.2s_ease]
+  "
+>
 
         <Link
           to="/profile"
@@ -148,10 +252,28 @@ useEffect(() => {
         </Link>
 
         <button
-          className="w-full text-left px-5 py-3 hover:bg-gray-100"
-        >
-          🌙 Dark Mode
-        </button>
+
+  onClick={() =>
+
+    setDarkMode(!darkMode)
+
+  }
+
+  className="w-full text-left px-5 py-3 hover:bg-gray-100"
+
+>
+
+  {
+
+    darkMode
+
+      ? "☀ Light Mode"
+
+      : "🌙 Dark Mode"
+
+  }
+
+</button>
 
         <button
           className="w-full text-left px-5 py-3 hover:bg-gray-100"

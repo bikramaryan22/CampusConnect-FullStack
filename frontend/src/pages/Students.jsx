@@ -260,6 +260,9 @@ py-3
 rounded-xl
 shadow-lg
 hover:scale-105
+active:scale-95
+transition-all
+duration-300
 hover:shadow-xl
 active:scale-95
 transition-all
