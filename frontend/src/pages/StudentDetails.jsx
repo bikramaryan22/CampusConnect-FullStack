@@ -11,16 +11,14 @@ function StudentDetails() {
   useEffect(() => {
 
     axios
-      .get("https://campusconnect-fullstack.onrender.com/students")
-      .then((res) => {
+  .get(
+    `https://campusconnect-fullstack.onrender.com/students/${id}`
+  )
+  .then((res) => {
 
-        const found = res.data.find(
-          (s) => s.id === Number(id)
-        )
+    setStudent(res.data)
 
-        setStudent(found)
-
-      })
+  })
 
   }, [id])
 
@@ -91,21 +89,21 @@ function StudentDetails() {
 
   <div className="grid md:grid-cols-2 gap-6">
 
-    <p><strong>Roll Number:</strong> -</p>
+    <p><strong>Roll Number: {student.roll_number || "-"}</strong> -</p>
 
-    <p><strong>Registration No:</strong> -</p>
+    <p><strong>Registration No: {student.registration_number || "-"}</strong> -</p>
 
-    <p><strong>Admission No:</strong> -</p>
+    <p><strong>Admission No: {student.admission_number || "-"}</strong> -</p>
 
     <p><strong>Branch:</strong> {student.branch}</p>
 
     <p><strong>Year:</strong> {student.year}</p>
 
-    <p><strong>Section:</strong> -</p>
+    <p><strong>Section: {student.section || "-"}</strong> -</p>
 
-    <p><strong>Batch:</strong> -</p>
+    <p><strong>Batch: {student.batch || "-"}</strong> -</p>
 
-    <p><strong>Admission Date:</strong> -</p>
+    <p><strong>Admission Date: {student.admission_date || "-"}</strong> -</p>
 
   </div>
 

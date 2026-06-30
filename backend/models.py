@@ -18,25 +18,66 @@ class Student(Base):
     __tablename__ = "students"
 
     id = Column(Integer, primary_key=True, index=True)
+
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    # Personal
-    name = Column(String)
-    email = Column(String)
-    phone = Column(String)
+    # --------------------------
+    # Personal Details
+    # --------------------------
+
     photo = Column(String, nullable=True)
 
-    # College
+    name = Column(String)
+
+    gender = Column(String, nullable=True)
+
+    dob = Column(String, nullable=True)
+
+    blood_group = Column(String, nullable=True)
+
+    email = Column(String)
+
+    phone = Column(String)
+
+    address = Column(String, nullable=True)
+
+    city = Column(String, nullable=True)
+
+    state = Column(String, nullable=True)
+
+    pincode = Column(String, nullable=True)
+
+    # --------------------------
+    # Parent Details
+    # --------------------------
+
+    father_name = Column(String, nullable=True)
+
+    mother_name = Column(String, nullable=True)
+
+    parent_phone = Column(String, nullable=True)
+
+    # --------------------------
+    # College Details
+    # --------------------------
+
     roll_number = Column(String, unique=True, nullable=True)
+
     registration_number = Column(String, unique=True, nullable=True)
+
     admission_number = Column(String, unique=True, nullable=True)
 
     branch = Column(String)
-    year = Column(Integer)
+
     section = Column(String, nullable=True)
+
     batch = Column(String, nullable=True)
 
+    year = Column(Integer)
+
     admission_date = Column(String, nullable=True)
+
+    current_semester = Column(Integer, default=1)
 
     cgpa = Column(Float, default=0)
 
@@ -93,19 +134,7 @@ class Notice(Base):
     description = Column(String)
     created_at = Column(String)
 
-class Attendance(Base):
-    __tablename__ = "attendance"
 
-    id = Column(Integer, primary_key=True, index=True)
-
-    student_id = Column(Integer, ForeignKey("students.id"))
-
-    subject = Column(String)
-
-    attended = Column(Integer)
-    total = Column(Integer)
-
-    faculty = Column(String, nullable=True)
 
 class Fee(Base):
     __tablename__ = "fees"
