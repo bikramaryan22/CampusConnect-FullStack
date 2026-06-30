@@ -94,28 +94,42 @@ useEffect(() => {
 
     <div className="flex-1 p-4">
 
-      <div className="text-slate-500 text-xs uppercase mb-3">
-        Main Menu
-      </div>
+      {!collapsed && (
+
+  <div className="text-slate-500 text-xs uppercase mb-3">
+    Main Menu
+  </div>
+
+)}
 
       <div className="flex flex-col gap-2">
 
         <Link
-          to="/"
-          className="p-3 rounded-xl hover:bg-blue-600 transition"
-        >
-          📊 Dashboard
-        </Link>
+  to="/"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Dashboard"
+>
+  <span className="text-2xl">📊</span>
+
+  {!collapsed && <span>Dashboard</span>}
+</Link>
 
         {
           role === "student" && (
 
             <Link
-              to="/profile"
-              className="p-3 rounded-xl hover:bg-blue-600 transition"
-            >
-              👤 My Profile
-            </Link>
+  to="/profile"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="My Profile"
+>
+  <span className="text-2xl">👤</span>
+
+  {!collapsed && <span>My Profile</span>}
+</Link>
 
           )
         }
@@ -124,80 +138,107 @@ useEffect(() => {
           role === "admin" && (
 
             <Link
-              to="/students"
-              className="p-3 rounded-xl hover:bg-blue-600 transition"
-            >
-              🎓 Students
-            </Link>
+  to="/students"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Students"
+>
+  <span className="text-2xl">🎓</span>
+
+  {!collapsed && <span>Students</span>}
+</Link>
 
           )
         }
 
+        
         <Link
-          to="/academics"
-          className="p-3 rounded-xl hover:bg-blue-600 transition"
-        >
-          📚 Academics
-        </Link>
+  to="/academics"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Academics"
+>
+  <span className="text-2xl">📚</span>
+
+  {!collapsed && <span>Academics</span>}
+</Link>
         {
   role === "admin" && (
 
     <Link
-      to="/admin-fees"
-      className="
-p-3
-rounded-xl
-hover:bg-slate-800
-hover:translate-x-2
-transition-all
-duration-200
-"
-    >
-      💰 Fee Management
-    </Link>
+  to="/admin-fees"
+  className={`p-3 rounded-xl hover:bg-slate-800 hover:translate-x-2 transition-all duration-200 flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Fee Management"
+>
+  <span className="text-2xl">💰</span>
+
+  {!collapsed && <span>Fee Management</span>}
+</Link>
 
   )
 }
         <Link
   to="/notices"
-  className="p-3 rounded-xl hover:bg-blue-600 transition"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Notices"
 >
-  📢 Notices
+  <span className="text-2xl">📢</span>
+
+  {!collapsed && <span>Notices</span>}
 </Link>
         <Link
-          to="/placements"
-          className="p-3 rounded-xl hover:bg-blue-600 transition"
-        >
-          💼 Placements
-        </Link>
+  to="/placements"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Placements"
+>
+  <span className="text-2xl">💼</span>
+
+  {!collapsed && <span>Placements</span>}
+</Link>
 <Link
   to="/attendance"
-  className="p-3 rounded-xl hover:bg-blue-600 transition"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Attendance"
 >
-  📅 Attendance
+  <span className="text-2xl">📅</span>
+
+  {!collapsed && <span>Attendance</span>}
 </Link>
         <Link
-          to="/sports"
-          className="p-3 rounded-xl hover:bg-blue-600 transition"
-        >
-          🏆 Sports
-        </Link>
+  to="/sports"
+  className={`p-3 rounded-xl hover:bg-blue-600 transition flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Sports"
+>
+  <span className="text-2xl">🏆</span>
+
+  {!collapsed && <span>Sports</span>}
+</Link>
         {
   role === "student" && (
 
     <Link
-      to="/fees"
-      className="
-      p-3
-      rounded-xl
-      hover:bg-slate-800
-      hover:translate-x-2
-      transition-all
-      duration-200
-      "
-    >
-      💰 Fees
-    </Link>
+  to="/fees"
+  className={`p-3 rounded-xl hover:bg-slate-800 hover:translate-x-2 transition-all duration-200 flex items-center ${
+    collapsed ? "justify-center" : "gap-3"
+  }`}
+  title="Fees"
+>
+  <span className="text-2xl">💰</span>
+
+  {!collapsed && <span>Fees</span>}
+</Link>
 
   )
 }
