@@ -287,15 +287,26 @@ def create_student(
     db.refresh(db_user)
 
     db_student = models.Student(
-        user_id=db_user.id,
-        name=student_data.name,
-        email=student_data.email,
-        phone=student_data.phone,
-        branch=student_data.branch,
-        year=student_data.year,
-        cgpa=0,
-        photo=student_data.photo
-    )
+    user_id=db_user.id,
+
+    name=student_data.name,
+    email=student_data.email,
+    phone=student_data.phone,
+    photo=student_data.photo,
+
+    roll_number=student_data.roll_number,
+    registration_number=student_data.registration_number,
+    admission_number=student_data.admission_number,
+
+    branch=student_data.branch,
+    year=student_data.year,
+    section=student_data.section,
+    batch=student_data.batch,
+
+    admission_date=student_data.admission_date,
+
+    cgpa=student_data.cgpa
+)
 
     db.add(db_student)
 
@@ -360,10 +371,23 @@ def update_student(
     student.name = student_data.name
     student.email = student_data.email
     student.phone = student_data.phone
+
+    student.roll_number = student_data.roll_number
+    student.registration_number = student_data.registration_number
+    student.admission_number = student_data.admission_number
+
     student.branch = student_data.branch
     student.year = student_data.year
+
+    student.section = student_data.section
+    student.batch = student_data.batch
+
+    student.admission_date = student_data.admission_date
+
     student.cgpa = student_data.cgpa
-    student.photo = student_data.photo
+
+    if student_data.photo:
+        student.photo = student_data.photo
 
     db.commit()
 
@@ -433,11 +457,20 @@ def create_academic_record(
         )
 
     record = models.AcademicRecord(
-        student_id=academic.student_id,
-        semester=academic.semester,
-        gpa=academic.gpa,
-        backlogs=academic.backlogs
-    )
+    student_id=academic.student_id,
+
+    semester=academic.semester,
+
+    gpa=academic.gpa,
+
+    backlogs=academic.backlogs,
+
+    credits=academic.credits,
+
+    attendance_percentage=academic.attendance_percentage,
+
+    remarks=academic.remarks
+)
 
     db.add(record)
 
@@ -999,11 +1032,16 @@ def create_attendance(
 ):
 
     record = models.Attendance(
-        student_id=attendance.student_id,
-        subject=attendance.subject,
-        attended=attendance.attended,
-        total=attendance.total
-    )
+    student_id=attendance.student_id,
+
+    subject=attendance.subject,
+
+    attended=attendance.attended,
+
+    total=attendance.total,
+
+    faculty=attendance.faculty
+)
 
     db.add(record)
     db.commit()
@@ -1064,12 +1102,22 @@ def create_fee(
 ):
 
     new_fee = models.Fee(
-        student_id=fee.student_id,
-        semester=fee.semester,
-        fee_type=fee.fee_type,
-        amount=fee.amount,
-        status="Pending"
-    )
+    student_id=fee.student_id,
+
+    semester=fee.semester,
+
+    fee_type=fee.fee_type,
+
+    total_amount=fee.total_amount,
+
+    paid_amount=fee.paid_amount,
+
+    pending_amount=fee.pending_amount,
+
+    payment_date=fee.payment_date,
+
+    status="Pending"
+)
 
     db.add(new_fee)
 
