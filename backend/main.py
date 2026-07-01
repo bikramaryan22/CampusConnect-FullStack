@@ -1190,23 +1190,24 @@ def pay_fee(
         models.Fee.id == fee_id
     ).first()
 
+    if not fee:
+        raise HTTPException(
+            status_code=404,
+            detail="Fee Not Found"
+        )
+
     fee.paid_amount = fee.total_amount
-
-fee.pending_amount = 0
-
-fee.status = "Paid"
-
-fee.payment_date = str(datetime.now())
-
-db.commit()
+    fee.pending_amount = 0
+    fee.status = "Paid"
+    fee.payment_date = str(datetime.now())
 
     db.commit()
 
-    return {
-        "message":
-        "Payment Successful"
-    }
+    db.refresh(fee)
 
+    return {
+        "message": "Payment Successful"
+    }
 @app.get("/receipt/{fee_id}")
 def download_receipt(
     fee_id: int,
