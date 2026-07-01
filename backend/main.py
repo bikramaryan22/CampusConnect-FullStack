@@ -155,6 +155,39 @@ with engine.connect() as conn:
         print("✅ status column added")
     except Exception as e:
         print("status:", e)
+# Fee total_amount
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text("ALTER TABLE fees ADD COLUMN total_amount FLOAT")
+        )
+        conn.commit()
+        print("✅ total_amount added")
+    except Exception as e:
+        print("total_amount:", e)
+
+# Fee paid_amount
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text("ALTER TABLE fees ADD COLUMN paid_amount FLOAT DEFAULT 0")
+        )
+        conn.commit()
+        print("✅ paid_amount added")
+    except Exception as e:
+        print("paid_amount:", e)
+
+# Fee pending_amount
+with engine.connect() as conn:
+    try:
+        conn.execute(
+            text("ALTER TABLE fees ADD COLUMN pending_amount FLOAT DEFAULT 0")
+        )
+        conn.commit()
+        print("✅ pending_amount added")
+    except Exception as e:
+        print("pending_amount:", e)
+
 
 
 # Database Dependency
