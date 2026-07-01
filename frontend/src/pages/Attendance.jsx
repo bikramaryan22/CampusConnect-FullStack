@@ -13,6 +13,7 @@ function Attendance() {
   const [subject, setSubject] = useState("")
   const [attended, setAttended] = useState("")
   const [total, setTotal] = useState("")
+  const [faculty, setFaculty] = useState("")
 
   const fetchAttendance = (studentId) => {
 
@@ -70,13 +71,18 @@ function Attendance() {
       await axios.post(
         "https://campusconnect-fullstack.onrender.com/attendance",
         {
-          student_id: Number(
-            selectedStudent
-          ),
-          subject,
-          attended: Number(attended),
-          total: Number(total)
-        },
+  student_id: Number(
+    selectedStudent
+  ),
+
+  subject,
+
+  attended: Number(attended),
+
+  total: Number(total),
+
+  faculty
+},
         {
           headers: {
             Authorization:
@@ -88,6 +94,7 @@ function Attendance() {
       setSubject("")
       setAttended("")
       setTotal("")
+      setFaculty("")
 
       fetchAttendance(
         selectedStudent
@@ -229,6 +236,26 @@ duration-200
                 }
                 
               />
+              <input
+  type="text"
+  placeholder="Faculty Name"
+  value={faculty}
+  onChange={(e) =>
+    setFaculty(e.target.value)
+  }
+  className="
+border
+border-gray-300
+rounded-xl
+p-3
+focus:ring-2
+focus:ring-blue-500
+focus:border-blue-500
+outline-none
+transition-all
+duration-200
+"
+/>
 
               <button
                 type="submit"
@@ -256,9 +283,13 @@ duration-200
                 Subject
               </th>
 
-              <th className="p-4 text-left">
-                Attended
-              </th>
+             <th className="p-4 text-left">
+  Faculty
+</th>
+
+<th className="p-4 text-left">
+  Attended
+</th>
 
               <th className="p-4 text-left">
                 Total
@@ -288,8 +319,12 @@ duration-200
                     </td>
 
                     <td className="p-4">
-                      {record.attended}
-                    </td>
+  {record.faculty}
+</td>
+
+<td className="p-4">
+  {record.attended}
+</td>
 
                     <td className="p-4">
                       {record.total}

@@ -93,17 +93,27 @@ function StudentDetails() {
 
     <p><strong>Phone:</strong> {student.phone}</p>
 
-    <p><strong>Gender:</strong> -</p>
+    <p><strong>Gender:</strong> {student.gender || "-"}</p>
 
-    <p><strong>Date of Birth:</strong> -</p>
+    <p><strong>Date of Birth:</strong> {student.dob || "-"}</p>
 
-    <p><strong>Blood Group:</strong> -</p>
+    <p><strong>Blood Group:</strong> {student.blood_group || "-"}</p>
 
-    <p><strong>Father Name:</strong> -</p>
+    <p><strong>Father Name:</strong> {student.father_name || "-"}</p>
 
-    <p><strong>Mother Name:</strong> -</p>
+    <p><strong>Mother Name:</strong> {student.mother_name || "-"}</p>
 
-    <p><strong>Address:</strong> -</p>
+    <p>
+  <strong>Address:</strong>{" "}
+  {student.address || "-"},
+  {" "}
+  {student.city || "-"},
+  {" "}
+  {student.state || "-"} -
+  {" "}
+  {student.pincode || "-"}
+</p>
+
 
   </div>
 
@@ -119,7 +129,9 @@ function StudentDetails() {
 
   <div className="grid md:grid-cols-2 gap-6">
 
-    <p><strong>Roll Number: {student.roll_number || "-"}</strong> -</p>
+    <p>
+  <strong>Roll Number:</strong> {student.roll_number || "-"}
+</p>
 
     <p><strong>Registration No: {student.registration_number || "-"}</strong> -</p>
 
@@ -225,7 +237,9 @@ Semester
 Fee Type
 
 </th>
-
+<th className="p-3 text-left">
+Total
+</th>
 <th className="p-3 text-left">
 
 Paid
@@ -266,6 +280,9 @@ fees.map((fee)=>(
 
 {fee.fee_type}
 
+</td>
+<td className="p-3">
+₹{fee.total_amount}
 </td>
 
 <td className="p-3 text-green-600">
@@ -309,23 +326,35 @@ fee.status==="Paid"
 
   <thead>
 
-    <tr className="border-b">
+<tr className="border-b">
 
-      <th className="text-left p-3">
-        Semester
-      </th>
+<th className="p-3 text-left">
+Semester
+</th>
 
-      <th className="text-left p-3">
-        GPA
-      </th>
+<th className="p-3 text-left">
+GPA
+</th>
 
-      <th className="text-left p-3">
-        Backlogs
-      </th>
+<th className="p-3 text-left">
+Credits
+</th>
 
-    </tr>
+<th className="p-3 text-left">
+Attendance
+</th>
 
-  </thead>
+<th className="p-3 text-left">
+Backlogs
+</th>
+
+<th className="p-3 text-left">
+Remarks
+</th>
+
+</tr>
+
+</thead>
 
   <tbody>
 
@@ -335,17 +364,17 @@ fee.status==="Paid"
 
         <tr key={record.id}>
 
-          <td className="p-3">
-            {record.semester}
-          </td>
+          <td className="p-3">{record.semester}</td>
 
-          <td className="p-3">
-            {record.gpa}
-          </td>
+<td className="p-3">{record.gpa}</td>
 
-          <td className="p-3">
-            {record.backlogs}
-          </td>
+<td className="p-3">{record.credits}</td>
+
+<td className="p-3">{record.attendance_percentage}%</td>
+
+<td className="p-3">{record.backlogs}</td>
+
+<td className="p-3">{record.remarks}</td>
 
         </tr>
 
@@ -439,10 +468,13 @@ fee.status==="Paid"
               }
             >
 
-              {(
-                (record.attended / record.total) *
-                100
-              ).toFixed(1)}%
+              {
+record.total > 0
+? (
+(record.attended / record.total) * 100
+).toFixed(1)
+: 0
+}%
 
             </span>
 

@@ -33,6 +33,7 @@ const [admissionDate, setAdmissionDate] = useState("")
 const [fatherName, setFatherName] = useState("")
 const [motherName, setMotherName] = useState("")
 const [parentPhone, setParentPhone] = useState("")
+const [existingPhoto, setExistingPhoto] = useState("")
 
 const [address, setAddress] = useState("")
 const [city, setCity] = useState("")

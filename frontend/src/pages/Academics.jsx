@@ -12,6 +12,9 @@ function Academics() {
   const [semester, setSemester] = useState("")
   const [gpa, setGpa] = useState("")
   const [backlogs, setBacklogs] = useState("")
+  const [credits, setCredits] = useState("")
+const [attendancePercentage, setAttendancePercentage] = useState("")
+const [remarks, setRemarks] = useState("")
   const [students, setStudents] = useState([])
 const [selectedStudent, setSelectedStudent] = useState("")
 
@@ -126,16 +129,28 @@ useEffect(() => {
       await axios.post(
         "https://campusconnect-fullstack.onrender.com/academics",
         {
-          student_id: Number(selectedStudent),
-          semester: Number(semester),
-          gpa: Number(gpa),
-          backlogs: Number(backlogs)
-        }
+  student_id: Number(selectedStudent),
+
+  semester: Number(semester),
+
+  gpa: Number(gpa),
+
+  backlogs: Number(backlogs),
+
+  credits: Number(credits),
+
+  attendance_percentage: Number(attendancePercentage),
+
+  remarks: remarks
+}
       )
 
       setSemester("")
       setGpa("")
       setBacklogs("")
+      setCredits("")
+setAttendancePercentage("")
+setRemarks("")
 
       setShowForm(false)
 
@@ -183,6 +198,9 @@ py-3
 rounded-xl
 shadow-lg
 hover:scale-105
+active:scale-95
+transition-all
+duration-300
 hover:shadow-xl
 active:scale-95
 transition-all
@@ -336,6 +354,29 @@ transition-all
 duration-200
 "
             />
+            <input
+  type="number"
+  placeholder="Credits"
+  value={credits}
+  onChange={(e) => setCredits(e.target.value)}
+  className="border border-gray-300 rounded-xl p-3"
+/>
+
+<input
+  type="number"
+  placeholder="Attendance %"
+  value={attendancePercentage}
+  onChange={(e) => setAttendancePercentage(e.target.value)}
+  className="border border-gray-300 rounded-xl p-3"
+/>
+
+<input
+  type="text"
+  placeholder="Remarks"
+  value={remarks}
+  onChange={(e) => setRemarks(e.target.value)}
+  className="border border-gray-300 rounded-xl p-3"
+/>
 
             <button
               type="submit"
