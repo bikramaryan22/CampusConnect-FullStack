@@ -46,31 +46,65 @@ function FeePortal() {
 
   }, [])
 
-  const payFee = async (feeId) => {
+const payFee = async (fee) => {
 
-    try {
+  try {
 
-      await axios.put(
-        `https://campusconnect-fullstack.onrender.com/fees/pay/${feeId}`
-      )
+    const orderResponse = await axios.post(
+      `https://campusconnect-fullstack.onrender.com/create-order/${fee.id}`
+    )
 
-      alert(
-  "Payment Successful!\nReceipt Generated."
-)
+    const order = orderResponse.data
 
-      fetchFees(studentId)
+    const options = {
 
-    } catch (error) {
+      key: import.meta.env.VITE_RAZORPAY_KEY,
 
-      console.log(error)
+      amount: order.amount,
 
-      alert(
-        "Payment Failed"
-      )
+      currency: order.currency,
+
+      name: "CampusConnect",
+
+      description: fee.fee_type,
+
+      order_id: order.id,
+
+      handler: async function () {
+
+        await axios.put(
+          `https://campusconnect-fullstack.onrender.com/fees/pay/${fee.id}`
+        )
+
+        alert("Payment Successful!")
+
+        fetchFees(studentId)
+
+      },
+
+      theme: {
+
+        color: "#2563eb"
+
+      }
 
     }
 
+    const razorpay = new window.Razorpay(options)
+
+    razorpay.open()
+
   }
+
+  catch (err) {
+
+    console.log(err)
+
+    alert("Unable to start payment.")
+
+  }
+
+}
 
   return (
 
@@ -98,7 +132,7 @@ function FeePortal() {
   Semester {fee.semester}
 </p>
               <h1 className="text-5xl font-bold text-blue-600 mb-4">
-                ₹{fee.amount}
+                ₹{fee.total_amount}
               </h1>
 
               <p className="mb-4">
@@ -131,9 +165,7 @@ function FeePortal() {
   ?
 
   <button
-    onClick={() =>
-      payFee(fee.id)
-    }
+    onClick={() => payFee(fee)}
     className="bg-green-600 text-white px-5 py-3 rounded-lg"
   >
     Pay Now
