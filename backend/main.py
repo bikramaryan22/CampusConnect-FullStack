@@ -14,6 +14,7 @@ from fastapi.responses import FileResponse
 from reportlab.pdfgen import canvas
 
 import os
+import razorpay
 
 import models
 import schemas
@@ -32,6 +33,12 @@ from security import (
 )
 
 app = FastAPI()
+razorpay_client = razorpay.Client(
+    auth=(
+        os.getenv("RAZORPAY_KEY_ID"),
+        os.getenv("RAZORPAY_KEY_SECRET")
+    )
+)
 
 app.mount(
     "/uploads",
@@ -91,44 +98,7 @@ with engine.connect() as conn:
 
             print(f"{column}:", e)
 
-extra_student_columns = [
 
-    ("gender", "TEXT"),
-    ("dob", "TEXT"),
-    ("blood_group", "TEXT"),
-
-    ("father_name", "TEXT"),
-    ("mother_name", "TEXT"),
-    ("parent_phone", "TEXT"),
-
-    ("address", "TEXT"),
-    ("city", "TEXT"),
-    ("state", "TEXT"),
-    ("pincode", "TEXT"),
-
-    ("current_semester", "INTEGER")
-
-]
-
-with engine.connect() as conn:
-
-    for column, datatype in extra_student_columns:
-
-        try:
-
-            conn.execute(
-                text(
-                    f"ALTER TABLE students ADD COLUMN {column} {datatype}"
-                )
-            )
-
-            conn.commit()
-
-            print(f"✅ Added {column}")
-
-        except Exception as e:
-
-            print(f"{column}: {e}")
 from sqlalchemy import text
 
 with engine.connect() as conn:
@@ -1359,3 +1329,36 @@ def upload_photo(
     return {
         "photo": file_path
     }
+
+@app.post("/create-order/{fee_id}")
+def create_order(
+    fee_id: int,
+    db: Session = Depends(get_db)
+):
+
+    fee = db.query(
+        models.Fee
+    ).filter(
+        models.Fee.id == fee_id
+    ).first()
+
+    if not fee:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Fee Not Found"
+        )
+
+    order = razorpay_client.order.create({
+
+        "amount": int(
+            fee.pending_amount * 100
+        ),
+
+        "currency": "INR",
+
+        "payment_capture": 1
+
+    })
+
+    return order
