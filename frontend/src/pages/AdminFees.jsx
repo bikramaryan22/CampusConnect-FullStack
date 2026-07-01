@@ -43,11 +43,20 @@ function AdminFees() {
         "https://campusconnect-fullstack.onrender.com/fees",
 
         {
-          student_id: Number(studentId),
-          semester: Number(semester),
-          fee_type: feeType,
-          amount: Number(amount)
-        },
+  student_id: Number(studentId),
+
+  semester: Number(semester),
+
+  fee_type: feeType,
+
+  total_amount: Number(amount),
+
+  paid_amount: 0,
+
+  pending_amount: Number(amount),
+
+  payment_date: null
+},
 
         {
           headers: {
