@@ -21,12 +21,30 @@ const [preview, setPreview] = useState("")
   const [branch, setBranch] = useState("")
   const [year, setYear] = useState("")
   const [cgpa, setCgpa] = useState("")
+  const [gender, setGender] = useState("")
+const [dob, setDob] = useState("")
+const [bloodGroup, setBloodGroup] = useState("")
+const [rollNumber, setRollNumber] = useState("")
+const [registrationNumber, setRegistrationNumber] = useState("")
+const [admissionNumber, setAdmissionNumber] = useState("")
+const [section, setSection] = useState("")
+const [batch, setBatch] = useState("")
+const [admissionDate, setAdmissionDate] = useState("")
+const [fatherName, setFatherName] = useState("")
+const [motherName, setMotherName] = useState("")
+const [parentPhone, setParentPhone] = useState("")
+
+const [address, setAddress] = useState("")
+const [city, setCity] = useState("")
+const [state, setState] = useState("")
+const [pincode, setPincode] = useState("")
   const [editingId, setEditingId] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [search, setSearch] = useState("")
   const [branchFilter, setBranchFilter] = useState("")
 
 const [yearFilter, setYearFilter] = useState("")
+const [activeTab, setActiveTab] = useState("personal")
 
 
   const fetchStudents = () => {
@@ -95,6 +113,23 @@ const [yearFilter, setYearFilter] = useState("")
   setBranch(student.branch)
   setYear(student.year.toString())
   setCgpa(student.cgpa.toString())
+  setGender(student.gender || "")
+setDob(student.dob || "")
+setBloodGroup(student.blood_group || "")
+setRollNumber(student.roll_number || "")
+setRegistrationNumber(student.registration_number || "")
+setAdmissionNumber(student.admission_number || "")
+setSection(student.section || "")
+setBatch(student.batch || "")
+setAdmissionDate(student.admission_date || "")
+setFatherName(student.father_name || "")
+setMotherName(student.mother_name || "")
+setParentPhone(student.parent_phone || "")
+
+setAddress(student.address || "")
+setCity(student.city || "")
+setState(student.state || "")
+setPincode(student.pincode || "")
 
 }
 
@@ -162,12 +197,30 @@ if (photo) {
 
   const updateData = {
     name,
+    gender,
+dob,
+blood_group: bloodGroup,
     email,
     phone,
     branch,
     year: Number(year),
     cgpa: Number(cgpa),
-    photo: photoPath
+    photo: photoPath || student.photo,
+    roll_number: rollNumber,
+registration_number: registrationNumber,
+admission_number: admissionNumber,
+
+section,
+batch,
+admission_date: admissionDate,
+father_name: fatherName,
+mother_name: motherName,
+parent_phone: parentPhone,
+
+address,
+city,
+state,
+pincode
   }
 
   await axios.put(
@@ -188,12 +241,31 @@ if (photo) {
     username,
     password,
     name,
+    gender,
+dob,
+blood_group: bloodGroup,
     email,
     phone,
     branch,
     year: Number(year),
     cgpa: Number(cgpa),
-    photo: photoPath
+    photo: photoPath,
+    roll_number: rollNumber,
+registration_number: registrationNumber,
+admission_number: admissionNumber,
+
+
+section,
+batch,
+admission_date: admissionDate,
+father_name: fatherName,
+mother_name: motherName,
+parent_phone: parentPhone,
+
+address,
+city,
+state,
+pincode
   }
 
   await axios.post(
@@ -293,6 +365,57 @@ duration-300
   onSubmit={handleSubmit}
   className="grid grid-cols-1 md:grid-cols-2 gap-5"
 >
+  <div className="flex gap-2 mb-6 flex-wrap">
+
+  <button
+    type="button"
+    onClick={() => setActiveTab("personal")}
+    className={`px-4 py-2 rounded-xl ${
+      activeTab === "personal"
+        ? "bg-blue-600 text-white"
+        : "bg-gray-200"
+    }`}
+  >
+    👤 Personal
+  </button>
+
+  <button
+    type="button"
+    onClick={() => setActiveTab("college")}
+    className={`px-4 py-2 rounded-xl ${
+      activeTab === "college"
+        ? "bg-blue-600 text-white"
+        : "bg-gray-200"
+    }`}
+  >
+    🎓 College
+  </button>
+
+  <button
+    type="button"
+    onClick={() => setActiveTab("parents")}
+    className={`px-4 py-2 rounded-xl ${
+      activeTab === "parents"
+        ? "bg-blue-600 text-white"
+        : "bg-gray-200"
+    }`}
+  >
+    👨 Parents
+  </button>
+
+  <button
+    type="button"
+    onClick={() => setActiveTab("address")}
+    className={`px-4 py-2 rounded-xl ${
+      activeTab === "address"
+        ? "bg-blue-600 text-white"
+        : "bg-gray-200"
+    }`}
+  >
+    🏠 Address
+  </button>
+
+</div>
 
   <div className="mb-4">
 
@@ -339,6 +462,8 @@ className="border border-gray-300 rounded-xl p-3 w-full"
 />
 
 </div>
+{activeTab === "personal" && (
+<>
 
   <div className="mb-4">
 
@@ -359,6 +484,30 @@ className="border border-gray-300 rounded-xl p-3 w-full"
     className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
   />
 
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Gender
+  </label>
+
+  <select
+    value={gender}
+    onChange={(e)=>setGender(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  >
+
+    <option value="">Select Gender</option>
+
+    <option>Male</option>
+
+    <option>Female</option>
+
+    <option>Other</option>
+
+  </select>
+
 </div>
 
   <div className="mb-4">
@@ -378,6 +527,22 @@ className="border border-gray-300 rounded-xl p-3 w-full"
     value={email}
     onChange={(e)=>setEmail(e.target.value)}
     className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+
+    Date of Birth
+
+  </label>
+
+  <input
+    type="date"
+    value={dob}
+    onChange={(e)=>setDob(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
   />
 
 </div>
@@ -413,6 +578,85 @@ className="border border-gray-300 rounded-xl p-3 w-full"
   />
 
 </div>
+</>
+)}
+{activeTab === "college" && (
+<>
+<h2 className="text-xl font-bold mt-6 mb-2 md:col-span-2">
+  🎓 College Information
+</h2>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Roll Number
+  </label>
+
+  <input
+    type="text"
+    value={rollNumber}
+    onChange={(e)=>setRollNumber(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Registration Number
+  </label>
+
+  <input
+    type="text"
+    value={registrationNumber}
+    onChange={(e)=>setRegistrationNumber(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Admission Number
+  </label>
+
+  <input
+    type="text"
+    value={admissionNumber}
+    onChange={(e)=>setAdmissionNumber(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+
+    Blood Group
+
+  </label>
+
+  <select
+    value={bloodGroup}
+    onChange={(e)=>setBloodGroup(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  >
+
+    <option value="">
+      Select Blood Group
+    </option>
+
+    <option>A+</option>
+    <option>A-</option>
+    <option>B+</option>
+    <option>B-</option>
+    <option>AB+</option>
+    <option>AB-</option>
+    <option>O+</option>
+    <option>O-</option>
+
+  </select>
+
+</div>
 
   <div className="mb-4">
 
@@ -431,6 +675,20 @@ className="border border-gray-300 rounded-xl p-3 w-full"
     value={branch}
     onChange={(e)=>setBranch(e.target.value)}
     className="border border-gray-300 rounded-xl p-3 w-full focus:ring-2 focus:ring-blue-500 outline-none"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Section
+  </label>
+
+  <input
+    type="text"
+    value={section}
+    onChange={(e)=>setSection(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
   />
 
 </div>
@@ -462,6 +720,153 @@ className="border border-gray-300 rounded-xl p-3 w-full"
   </select>
 
 </div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Batch
+  </label>
+
+  <input
+    type="text"
+    placeholder="2024-2028"
+    value={batch}
+    onChange={(e)=>setBatch(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Admission Date
+  </label>
+
+  <input
+    type="date"
+    value={admissionDate}
+    onChange={(e)=>setAdmissionDate(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+</>
+)}
+{activeTab === "parents" && (
+<>
+<h2 className="text-xl font-bold mt-6 mb-2 md:col-span-2">
+  👨 Parent Information
+</h2>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Father Name
+  </label>
+
+  <input
+    type="text"
+    value={fatherName}
+    onChange={(e)=>setFatherName(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Mother Name
+  </label>
+
+  <input
+    type="text"
+    value={motherName}
+    onChange={(e)=>setMotherName(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Parent Phone
+  </label>
+
+  <input
+    type="text"
+    value={parentPhone}
+    onChange={(e)=>setParentPhone(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+</>
+)}
+{activeTab === "address" && (
+<>
+<h2 className="text-xl font-bold mt-6 mb-2 md:col-span-2">
+  🏠 Address
+</h2>
+<div className="md:col-span-2">
+
+  <label className="font-medium mb-2 block">
+    Address
+  </label>
+
+  <textarea
+    rows={3}
+    value={address}
+    onChange={(e)=>setAddress(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    City
+  </label>
+
+  <input
+    type="text"
+    value={city}
+    onChange={(e)=>setCity(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    State
+  </label>
+
+  <input
+    type="text"
+    value={state}
+    onChange={(e)=>setState(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+<div className="mb-4">
+
+  <label className="font-medium mb-2 block">
+    Pincode
+  </label>
+
+  <input
+    type="text"
+    value={pincode}
+    onChange={(e)=>setPincode(e.target.value)}
+    className="border border-gray-300 rounded-xl p-3 w-full"
+  />
+
+</div>
+</>
+)}
+
+
+
 
   <div className="mb-4">
 
