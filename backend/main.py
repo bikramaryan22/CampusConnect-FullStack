@@ -90,6 +90,45 @@ with engine.connect() as conn:
         except Exception as e:
 
             print(f"{column}:", e)
+
+extra_student_columns = [
+
+    ("gender", "TEXT"),
+    ("dob", "TEXT"),
+    ("blood_group", "TEXT"),
+
+    ("father_name", "TEXT"),
+    ("mother_name", "TEXT"),
+    ("parent_phone", "TEXT"),
+
+    ("address", "TEXT"),
+    ("city", "TEXT"),
+    ("state", "TEXT"),
+    ("pincode", "TEXT"),
+
+    ("current_semester", "INTEGER")
+
+]
+
+with engine.connect() as conn:
+
+    for column, datatype in extra_student_columns:
+
+        try:
+
+            conn.execute(
+                text(
+                    f"ALTER TABLE students ADD COLUMN {column} {datatype}"
+                )
+            )
+
+            conn.commit()
+
+            print(f"✅ Added {column}")
+
+        except Exception as e:
+
+            print(f"{column}: {e}")
 from sqlalchemy import text
 
 with engine.connect() as conn:
