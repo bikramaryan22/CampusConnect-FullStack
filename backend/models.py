@@ -133,7 +133,20 @@ class Notice(Base):
     title = Column(String)
     description = Column(String)
     created_at = Column(String)
+class Attendance(Base):
+    __tablename__ = "attendance"
 
+    id = Column(Integer, primary_key=True, index=True)
+
+    student_id = Column(Integer, ForeignKey("students.id"))
+
+    subject = Column(String)
+
+    attended = Column(Integer)
+
+    total = Column(Integer)
+
+    faculty = Column(String, nullable=True)
 
 
 class Fee(Base):
