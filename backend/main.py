@@ -384,25 +384,6 @@ def get_student(student_id: int, db: Session = Depends(get_db)):
 
     return student
 
-@app.get("/students/{student_id}")
-def get_student(
-    student_id: int,
-    db: Session = Depends(get_db)
-):
-
-    student = db.query(
-        models.Student
-    ).filter(
-        models.Student.id == student_id
-    ).first()
-
-    if student is None:
-
-        return {
-            "message": "Student Not Found"
-        }
-
-    return student
 
 @app.put("/students/{student_id}")
 def update_student(
@@ -558,6 +539,8 @@ def create_academic_record(
     ).first()
 
     student.cgpa = cgpa
+
+    student.current_semester = academic.semester
 
     db.commit()
 
@@ -1207,7 +1190,15 @@ def pay_fee(
         models.Fee.id == fee_id
     ).first()
 
-    fee.status = "Paid"
+    fee.paid_amount = fee.total_amount
+
+fee.pending_amount = 0
+
+fee.status = "Paid"
+
+fee.payment_date = str(datetime.now())
+
+db.commit()
 
     db.commit()
 
@@ -1289,7 +1280,7 @@ def download_receipt(
     c.drawString(
         50,
         660,
-        f"Amount: ₹{fee.amount}"
+        f"Amount Paid: ₹{fee.paid_amount}"
     )
 
     c.drawString(

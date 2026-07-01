@@ -7,6 +7,9 @@ function StudentDetails() {
   const { id } = useParams()
 
   const [student, setStudent] = useState(null)
+  const [academics, setAcademics] = useState([])
+  const [fees, setFees] = useState([])
+  const [attendance, setAttendance] = useState([])
 
   useEffect(() => {
 
@@ -17,6 +20,33 @@ function StudentDetails() {
   .then((res) => {
 
     setStudent(res.data)
+    axios
+  .get(
+    `https://campusconnect-fullstack.onrender.com/academics/${id}`
+  )
+  .then((academicRes) => {
+
+    setAcademics(academicRes.data)
+
+  })
+  axios
+  .get(
+    `https://campusconnect-fullstack.onrender.com/fees/${id}`
+  )
+  .then((feeRes) => {
+
+    setFees(feeRes.data)
+
+  })
+  axios
+  .get(
+    `https://campusconnect-fullstack.onrender.com/attendance/${id}`
+  )
+  .then((attendanceRes) => {
+
+    setAttendance(attendanceRes.data)
+
+  })
 
   })
 
@@ -108,66 +138,325 @@ function StudentDetails() {
   </div>
 
 </div>
+<div className="grid md:grid-cols-3 gap-4 mb-6">
 
-<div className="bg-white rounded-3xl shadow-xl p-6 mt-6">
+<div className="bg-blue-50 rounded-xl p-4">
 
-  <h2 className="text-2xl font-bold mb-6">
+<h3>Total Fee</h3>
 
-    💰 Fee Details
+<h1 className="text-3xl font-bold">
 
-  </h2>
+₹{
 
-  <div className="grid md:grid-cols-2 gap-6">
+fees.reduce(
 
-    <p><strong>Total Fee:</strong> ₹0</p>
+(sum,f)=>sum+f.total_amount,
 
-    <p><strong>Paid:</strong> ₹0</p>
+0
 
-    <p><strong>Pending:</strong> ₹0</p>
+)
 
-    <p><strong>Status:</strong> Pending</p>
+}
 
-  </div>
-
-</div>
-<div className="bg-white rounded-3xl shadow-xl p-6 mt-6">
-
-  <h2 className="text-2xl font-bold mb-6">
-
-    📚 Academic Details
-
-  </h2>
-
-  <div className="grid md:grid-cols-2 gap-6">
-
-    <p><strong>CGPA:</strong> {student.cgpa}</p>
-
-    <p><strong>Current Semester:</strong> -</p>
-
-    <p><strong>Backlogs:</strong> -</p>
-
-    <p><strong>Credits:</strong> -</p>
-
-  </div>
+</h1>
 
 </div>
 
-<div className="bg-white rounded-3xl shadow-xl p-6 mt-6">
+<div className="bg-green-50 rounded-xl p-4">
 
-  <h2 className="text-2xl font-bold mb-6">
+<h3>Total Paid</h3>
 
-    📅 Attendance
+<h1 className="text-3xl font-bold">
 
-  </h2>
+₹{
 
-  <p>
+fees.reduce(
 
-    Attendance information will appear here.
+(sum,f)=>sum+f.paid_amount,
 
-  </p>
+0
+
+)
+
+}
+
+</h1>
 
 </div>
 
+<div className="bg-red-50 rounded-xl p-4">
+
+<h3>Pending</h3>
+
+<h1 className="text-3xl font-bold">
+
+₹{
+
+fees.reduce(
+
+(sum,f)=>sum+f.pending_amount,
+
+0
+
+)
+
+}
+
+</h1>
+
+</div>
+
+</div>
+
+<table className="w-full">
+
+<thead>
+
+<tr className="border-b">
+
+<th className="p-3 text-left">
+
+Semester
+
+</th>
+
+<th className="p-3 text-left">
+
+Fee Type
+
+</th>
+
+<th className="p-3 text-left">
+
+Paid
+
+</th>
+
+<th className="p-3 text-left">
+
+Pending
+
+</th>
+
+<th className="p-3 text-left">
+
+Status
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{
+
+fees.map((fee)=>(
+
+<tr key={fee.id}>
+
+<td className="p-3">
+
+{fee.semester}
+
+</td>
+
+<td className="p-3">
+
+{fee.fee_type}
+
+</td>
+
+<td className="p-3 text-green-600">
+
+₹{fee.paid_amount}
+
+</td>
+
+<td className="p-3 text-red-600">
+
+₹{fee.pending_amount}
+
+</td>
+
+<td className="p-3">
+
+<span
+className={
+fee.status==="Paid"
+? "bg-green-100 text-green-700 px-3 py-1 rounded-full"
+: "bg-red-100 text-red-700 px-3 py-1 rounded-full"
+}
+>
+
+{fee.status}
+
+</span>
+
+</td>
+
+</tr>
+
+))
+
+}
+
+</tbody>
+
+</table>
+<table className="w-full">
+
+  <thead>
+
+    <tr className="border-b">
+
+      <th className="text-left p-3">
+        Semester
+      </th>
+
+      <th className="text-left p-3">
+        GPA
+      </th>
+
+      <th className="text-left p-3">
+        Backlogs
+      </th>
+
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    {
+
+      academics.map((record)=>(
+
+        <tr key={record.id}>
+
+          <td className="p-3">
+            {record.semester}
+          </td>
+
+          <td className="p-3">
+            {record.gpa}
+          </td>
+
+          <td className="p-3">
+            {record.backlogs}
+          </td>
+
+        </tr>
+
+      ))
+
+    }
+
+  </tbody>
+
+</table>
+
+<table className="w-full">
+
+  <thead>
+
+    <tr className="border-b">
+
+      <th className="p-3 text-left">
+
+        Subject
+
+      </th>
+
+      <th className="p-3 text-left">
+
+        Faculty
+
+      </th>
+
+      <th className="p-3 text-left">
+
+        Attended
+
+      </th>
+
+      <th className="p-3 text-left">
+
+        Total
+
+      </th>
+
+      <th className="p-3 text-left">
+
+        %
+
+      </th>
+
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    {
+
+      attendance.map((record)=>(
+
+        <tr key={record.id}>
+
+          <td className="p-3">
+
+            {record.subject}
+
+          </td>
+
+          <td className="p-3">
+
+            {record.faculty}
+
+          </td>
+
+          <td className="p-3">
+
+            {record.attended}
+
+          </td>
+
+          <td className="p-3">
+
+            {record.total}
+
+          </td>
+
+          <td className="p-3">
+
+            <span
+              className={
+                record.attended / record.total >= 0.75
+                  ? "bg-green-100 text-green-700 px-3 py-1 rounded-full"
+                  : "bg-red-100 text-red-700 px-3 py-1 rounded-full"
+              }
+            >
+
+              {(
+                (record.attended / record.total) *
+                100
+              ).toFixed(1)}%
+
+            </span>
+
+          </td>
+
+        </tr>
+
+      ))
+
+    }
+
+  </tbody>
+
+</table>
 <div className="bg-white rounded-3xl shadow-xl p-6 mt-6">
 
   <h2 className="text-2xl font-bold mb-6">
