@@ -105,8 +105,14 @@ const [activeTab, setActiveTab] = useState("personal")
   const editStudent = (student) => {
 
   setEditingId(student.id)
+  setPhoto(null)
   setShowForm(true)
-  
+  setExistingPhoto(student.photo || "")
+  setPreview(
+  student.photo
+    ? `https://campusconnect-fullstack.onrender.com/${student.photo}`
+    : ""
+)
 
   setName(student.name)
   setEmail(student.email)
@@ -137,6 +143,19 @@ setPincode(student.pincode || "")
   const handleSubmit = async (e) => {
 
     e.preventDefault()
+    if (!editingId) {
+
+    if (!username.trim()) {
+        alert("Username Required")
+        return
+    }
+
+    if (!password.trim()) {
+        alert("Password Required")
+        return
+    }
+
+}
 
     if (![1, 2, 3, 4].includes(Number(year))) {
       alert("Year must be between 1 and 4")
@@ -206,7 +225,7 @@ blood_group: bloodGroup,
     branch,
     year: Number(year),
     cgpa: Number(cgpa),
-    photo: photoPath || student.photo,
+    photo: photoPath || existingPhoto,
     roll_number: rollNumber,
 registration_number: registrationNumber,
 admission_number: admissionNumber,
@@ -289,12 +308,32 @@ pincode
 setPassword("")
 setPhoto(null)
 
+
 setName("")
 setEmail("")
 setPhone("")
 setBranch("")
 setYear("")
 setCgpa("")
+setGender("")
+setDob("")
+setBloodGroup("")
+setRollNumber("")
+setRegistrationNumber("")
+setAdmissionNumber("")
+setSection("")
+setBatch("")
+setAdmissionDate("")
+setFatherName("")
+setMotherName("")
+setParentPhone("")
+setAddress("")
+setCity("")
+setState("")
+setPincode("")
+setExistingPhoto("")
+setPreview("")
+setActiveTab("personal")
 
   setShowForm(false)
 
@@ -366,7 +405,7 @@ duration-300
   onSubmit={handleSubmit}
   className="grid grid-cols-1 md:grid-cols-2 gap-5"
 >
-  <div className="flex gap-2 mb-6 flex-wrap">
+  <div className="md:col-span-2 flex gap-2 mb-6 flex-wrap">
 
   <button
     type="button"
@@ -417,6 +456,8 @@ duration-300
   </button>
 
 </div>
+{!editingId && (
+<>
 
   <div className="mb-4">
 
@@ -463,6 +504,8 @@ className="border border-gray-300 rounded-xl p-3 w-full"
 />
 
 </div>
+</>
+)}
 {activeTab === "personal" && (
 <>
 
